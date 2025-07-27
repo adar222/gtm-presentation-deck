@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Overwolf GTM Plan</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css" id="theme">
+
+    <!-- Google Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Overwolf Theme */
+        :root {
+            --r-background-color: #101010;
+            --r-main-font: 'Lato', sans-serif;
+            --r-heading-font: 'Montserrat', sans-serif;
+            --r-main-color: #FFFFFF;
+            --r-heading-color: #FFFFFF;
+            
+            /* Custom Color Palette */
+            --accent-purple: #9D4EDD;
+            --accent-teal: #48BFE3;
+            --accent-red: #D34037;
+            --accent-green: #2ECC71;
+            --text-gray: #9F9F9F;
+
+            --r-link-color: var(--accent-purple);
+            --r-link-color-hover: #C77DFF;
+            --r-selection-background-color: var(--accent-purple);
+        }
+
+        .reveal .slides h1, .reveal .slides h2, .reveal .slides h3 {
+            text-transform: none;
+            font-weight: 900;
+        }
+        
+        .reveal .slides section.title-slide {
+            text-align: center;
+        }
+        
+        .reveal .slides section.title-slide h1 {
+            font-size: 3em;
+            color: var(--r-main-color);
+        }
+        
+        .reveal .slides section.title-slide .goal {
+            font-size: 4.5em;
+            color: var(--accent-green);
+            margin: 1em 0;
+            text-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .reveal .slides section.title-slide .focus {
+            font-size: 1.2em;
+            color: var(--text-gray);
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Slide 1: Executive Summary -->
+            <section class="title-slide">
+                <h1 class="fragment fade-in" data-fragment-index="0">The Goal:</h1>
+                
+                <div class="goal fragment fade-in" data-fragment-index="1">
+                    $1M
+                </div>
+                
+                <h2 class="fragment fade-in" data-fragment-index="2">
+                    Cumulative Revenue by March 2026
+                </h2>
+                
+                <p class="focus fragment fade-in" data-fragment-index="3">
+                    Achieved through aggressive outreach, multi-channel lead gen, and rapid onboarding.
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: false, 
+            // By default, Reveal.js uses a horizontal layout.
+            // You can add more slides by adding more <section> tags.
+        });
+    </script>
+</body>
+</html>
