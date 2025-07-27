@@ -1,102 +1,146 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <title>Overwolf GTM Plan</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css" id="theme">
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Slide 1 - Executive Summary</title>
     <!-- Google Fonts Import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-
     <style>
-        /* Custom Overwolf Theme */
+        /* Custom Color Palette */
         :root {
-            --r-background-color: #101010;
-            --r-main-font: 'Lato', sans-serif;
-            --r-heading-font: 'Montserrat', sans-serif;
-            --r-main-color: #FFFFFF;
-            --r-heading-color: #FFFFFF;
-            
-            /* Custom Color Palette */
-            --accent-purple: #9D4EDD;
-            --accent-teal: #48BFE3;
-            --accent-red: #D34037;
-            --accent-green: #2ECC71;
-            --text-gray: #9F9F9F;
-
-            --r-link-color: var(--accent-purple);
-            --r-link-color-hover: #C77DFF;
-            --r-selection-background-color: var(--accent-purple);
+            --background: #101010;
+            --purple: #9D4EDD;
+            --teal: #48BFE3;
+            --red: #D34037;
+            --green: #2ECC71;
+            --gray: #9F9F9F;
+            --white: #FFFFFF;
+            --card-bg: #1e1e1e;
         }
 
-        .reveal .slides h1, .reveal .slides h2, .reveal .slides h3 {
-            text-transform: none;
-            font-weight: 900;
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--background);
+            color: var(--white);
+            overflow: hidden;
         }
-        
-        .reveal .slides section.title-slide {
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 2rem;
             text-align: center;
         }
-        
-        .reveal .slides section.title-slide h1 {
-            font-size: 3em;
-            color: var(--r-main-color);
-        }
-        
-        .reveal .slides section.title-slide .goal {
-            font-size: 4.5em;
-            color: var(--accent-green);
-            margin: 1em 0;
-            text-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+
+        .summary-content {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
         }
 
-        .reveal .slides section.title-slide .focus {
-            font-size: 1.2em;
-            color: var(--text-gray);
+        .summary-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--white);
+            margin: 0;
+            animation: fadeInDown 0.8s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+        
+        .goal-value {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 6rem;
+            color: var(--green);
+            margin: 2rem 0;
+            text-shadow: 0 0 25px rgba(46, 204, 113, 0.4);
+            animation: zoomIn 0.8s ease-out 1s forwards;
+            opacity: 0;
+        }
+
+        .goal-description {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 1.5s forwards;
+            opacity: 0;
+        }
+        
+        .focus-text {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.2rem;
+            color: var(--gray);
             font-style: italic;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 2s forwards;
+            opacity: 0;
         }
 
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .arrow-nav {
+            position: fixed;
+            bottom: 40px;
+            font-size: 2rem;
+            color: var(--purple);
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            padding: 0.4em 0.5em;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+            z-index: 100;
+        }
+
+        .arrow-nav:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+        }
+
+        .arrow-right {
+            right: 40px;
+        }
     </style>
 </head>
 <body>
-    <div class="reveal">
-        <div class="slides">
-            
-            <!-- Slide 1: Executive Summary -->
-            <section class="title-slide">
-                <!-- FIX: Removed "fragment" class so this appears on load -->
-                <h1>The Goal:</h1>
-                
-                <div class="goal fragment fade-in" data-fragment-index="1">
-                    $1M
-                </div>
-                
-                <h2 class="fragment fade-in" data-fragment-index="2">
-                    Cumulative Revenue by March 2026
-                </h2>
-                
-                <p class="focus fragment fade-in" data-fragment-index="3">
-                    Achieved through aggressive outreach, multi-channel lead gen, and rapid onboarding.
-                </p>
-            </section>
-
+    <div class="slide-container">
+        <div class="summary-content">
+            <h1>The Goal:</h1>
+            <div class="goal-value">$1M</div>
+            <div class="goal-description">Cumulative Revenue by March 2026</div>
+            <p class="focus-text">
+                Focus: Aggressive outreach, multi-channel lead gen, and rapid onboarding to achieve our Q1 revenue goal.
+            </p>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
-    <script>
-        Reveal.initialize({
-            hash: false, 
-            // By default, Reveal.js uses a horizontal layout.
-            // You can add more slides by adding more <section> tags.
-        });
-    </script>
+    <!-- Arrow to next slide -->
+    <a href="slide2.html" class="arrow-nav arrow-right">→</a>
 </body>
 </html>
