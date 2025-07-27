@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Slide 3 - 5-Month Launch Plan</title>
+    <!-- Google Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Color Palette */
+        :root {
+            --background: #101010;
+            --purple: #9D4EDD;
+            --teal: #48BFE3;
+            --red: #D34037;
+            --green: #2ECC71;
+            --gray: #9F9F9F;
+            --white: #FFFFFF;
+            --card-bg: #1e1e1e;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--background);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 2rem;
+        }
+
+        .gantt-content {
+            text-align: center;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .gantt-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--white);
+            margin: 0 0 3rem 0;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .gantt-chart {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+        .gantt-chart th, .gantt-chart td {
+            padding: 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        .gantt-chart th {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--gray);
+            padding-bottom: 1rem;
+        }
+        .gantt-chart .task-name {
+            text-align: left;
+            width: 35%;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .gantt-bar {
+            height: 12px;
+            border-radius: 6px;
+            width: 0; /* Initial width for animation */
+            animation: growBar 0.8s ease-out forwards;
+        }
+        
+        .bar-very-high { background-color: var(--purple); }
+        .bar-high { background-color: var(--teal); }
+        .bar-medium { background-color: var(--gray); }
+        .bar-some { background-color: #444; }
+        
+        .gantt-chart tbody tr {
+            opacity: 0;
+            animation: fadeInRow 0.5s ease-out forwards;
+        }
+
+        .legend {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+            animation: fadeInUp 0.8s ease-out 1.5s forwards;
+            opacity: 0;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRow {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes growBar {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .arrow-nav {
+            position: fixed;
+            bottom: 40px;
+            font-size: 2rem;
+            color: var(--purple);
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            padding: 0.4em 0.5em;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+            z-index: 100;
+        }
+
+        .arrow-nav:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+        }
+        
+        .arrow-left {
+            left: 40px;
+        }
+
+        .arrow-right {
+            right: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="gantt-content">
+            <h1>5-Month Launch Plan Overview</h1>
+            <table class="gantt-chart">
+                <thead>
+                    <tr>
+                        <th class="task-name">Core Pillar / Month</th>
+                        <th>Nov</th>
+                        <th>Dec</th>
+                        <th>Jan</th>
+                        <th>Feb</th>
+                        <th>Mar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="animation-delay: 0.5s;">
+                        <td class="task-name">Outreach & Pipeline Build</td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                    </tr>
+                    <tr style="animation-delay: 0.6s;">
+                        <td class="task-name">Proposals & Closing</td>
+                        <td><div class="gantt-bar bar-some"></div></td>
+                        <td><div class="gantt-bar bar-medium"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                    </tr>
+                    <tr style="animation-delay: 0.7s;">
+                        <td class="task-name">Onboarding (Rolling Batches)</td>
+                        <td></td>
+                        <td></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                    </tr>
+                    <tr style="animation-delay: 0.8s;">
+                        <td class="task-name">Go Live & Revenue Ramp</td>
+                        <td></td>
+                        <td></td>
+                        <td><div class="gantt-bar bar-some"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                    </tr>
+                    <tr style="animation-delay: 0.9s;">
+                        <td class="task-name">Support & Optimization</td>
+                        <td><div class="gantt-bar bar-some"></div></td>
+                        <td><div class="gantt-bar bar-some"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color" style="background-color: var(--purple);"></div>Very High</div>
+                <div class="legend-item"><div class="legend-color" style="background-color: var(--teal);"></div>High</div>
+                <div class="legend-item"><div class="legend-color" style="background-color: var(--gray);"></div>Medium</div>
+                <div class="legend-item"><div class="legend-color" style="background-color: #444;"></div>Some Activity</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arrows -->
+    <a href="slide2.html" class="arrow-nav arrow-left">←</a>
+    <a href="slide4.html" class="arrow-nav arrow-right">→</a>
+</body>
+</html>
