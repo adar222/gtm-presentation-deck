@@ -99,6 +99,27 @@
             animation: fadeInRow 0.5s ease-out forwards;
         }
 
+        .legend {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+            animation: fadeInUp 0.8s ease-out 1.5s forwards;
+            opacity: 0;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -106,6 +127,10 @@
         @keyframes fadeInRow {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes fadeInBar {
             from { opacity: 0; }
@@ -224,6 +249,12 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color" style="background-color: var(--purple);"></div>Very High</div>
+                <div class="legend-item"><div class="legend-color" style="background-color: var(--teal);"></div>High</div>
+                <div class="legend-item"><div class="legend-color" style="background-color: var(--gray);"></div>Medium</div>
+                <div class="legend-item"><div class="legend-color" style="background-color: #444;"></div>Some Activity</div>
+            </div>
         </div>
     </div>
 
