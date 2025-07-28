@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Slide 2 - Q1 Revenue Funnel</title>
+    <title>Slide 3 - 5-Month Launch Plan & Resource Ramp</title>
     <!-- Google Fonts Import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,89 +39,119 @@
             height: 100vh;
             width: 100%;
             box-sizing: border-box;
-            padding: 1rem;
+            padding: 2rem;
         }
 
-        .cascade-content {
+        .gantt-content {
             text-align: center;
-            max-width: 800px;
+            max-width: 1100px;
             width: 100%;
         }
 
-        .cascade-content h1 {
+        .gantt-content h1 {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.8rem;
             font-weight: 900;
             color: var(--white);
-            margin: 0 0 2rem 0;
+            margin: 0 0 3rem 0;
             animation: fadeInDown 0.8s ease-out;
         }
         
-        .cascade-flow {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .gantt-chart {
             width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+        .gantt-chart th, .gantt-chart td {
+            padding: 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        .gantt-chart th {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--gray);
+            padding-bottom: 1rem;
+        }
+        .gantt-chart .task-name {
+            text-align: left;
+            width: 35%;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .gantt-bar {
+            height: 12px;
+            border-radius: 6px;
+            width: 90%; /* --- FIX: Set width to be consistent --- */
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInBar 0.8s ease-out forwards;
+        }
+        
+        .bar-very-high { background-color: var(--purple); }
+        .bar-high { background-color: var(--teal); }
+        .bar-medium { background-color: var(--gray); }
+        .bar-some { background-color: #444; }
+        
+        .gantt-chart tbody tr {
+            opacity: 0;
+            animation: fadeInRow 0.5s ease-out forwards;
+        }
+
+        .headcount-row {
+            border-top: 2px solid var(--green);
+        }
+
+        .headcount-row .headcount-value {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--green);
+        }
+        .headcount-value span {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--gray);
+        }
+
+        .legend {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+            animation: fadeInUp 0.8s ease-out 1.5s forwards;
+            opacity: 0;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
         }
 
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes fadeInRow {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-
-        .cascade-stage {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 0.75rem 2rem;
-            width: 70%;
-            opacity: 0;
-            animation: zoomIn 0.7s ease-out forwards;
-            border: 1px solid #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .stage-label strong {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--white);
-        }
-        
-        .stage-value {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 2rem;
-            color: var(--white);
-        }
-
-        .connector {
-            text-align: center;
-            opacity: 0;
-            animation: zoomIn 0.7s ease-out forwards;
-            margin: 0.5rem 0;
-        }
-
-        .connector-arrow {
-            font-size: 1.5rem;
-            color: var(--purple);
-            line-height: 1;
-        }
-        .connector-label {
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        .final-stage {
-            border-bottom: 4px solid var(--green);
+        @keyframes fadeInBar {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .arrow-nav {
@@ -154,57 +184,81 @@
 </head>
 <body>
     <div class="slide-container">
-        <div class="cascade-content">
-            <h1>Q1 Revenue Funnel & Math</h1>
-            
-            <div class="cascade-flow">
-                <!-- Stage 1 -->
-                <div class="cascade-stage" style="animation-delay: 0.5s;">
-                    <div class="stage-label"><strong>Outreach</strong></div>
-                    <div class="stage-value">1000+</div>
-                </div>
-                <div class="connector" style="animation-delay: 0.7s;">
-                    <div class="connector-arrow">↓</div>
-                    <div class="connector-label">50% Engagement</div>
-                </div>
-                <!-- Stage 2 -->
-                <div class="cascade-stage" style="animation-delay: 0.9s;">
-                    <div class="stage-label"><strong>Active Engagements</strong></div>
-                    <div class="stage-value">~500</div>
-                </div>
-                <div class="connector" style="animation-delay: 1.1s;">
-                    <div class="connector-arrow">↓</div>
-                    <div class="connector-label">50% Qualification</div>
-                </div>
-                <!-- Stage 3 -->
-                <div class="cascade-stage" style="animation-delay: 1.3s;">
-                    <div class="stage-label"><strong>Qualified Publishers</strong></div>
-                    <div class="stage-value">~250</div>
-                </div>
-                <div class="connector" style="animation-delay: 1.5s;">
-                    <div class="connector-arrow">↓</div>
-                    <div class="connector-label">30% Proposal Rate</div>
-                </div>
-                <!-- Stage 4 -->
-                <div class="cascade-stage" style="animation-delay: 1.7s;">
-                    <div class="stage-label"><strong>Proposals Sent</strong></div>
-                    <div class="stage-value">~80</div>
-                </div>
-                <div class="connector" style="animation-delay: 1.9s;">
-                    <div class="connector-arrow">↓</div>
-                    <div class="connector-label">50% Close Rate</div>
-                </div>
-                <!-- Stage 5 -->
-                <div class="cascade-stage final-stage" style="animation-delay: 2.1s;">
-                    <div class="stage-label"><strong>Closed Deals</strong></div>
-                    <div class="stage-value">~40</div>
-                </div>
+        <div class="gantt-content">
+            <h1>5-Month Launch Plan & Resource Ramp</h1>
+            <table class="gantt-chart">
+                <thead>
+                    <tr>
+                        <th class="task-name">Core Pillar / Month</th>
+                        <th>Nov</th>
+                        <th>Dec</th>
+                        <th>Jan</th>
+                        <th>Feb</th>
+                        <th>Mar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="animation-delay: 0.5s;">
+                        <td class="task-name">Outreach & Pipeline Build</td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                    </tr>
+                    <tr style="animation-delay: 0.6s;">
+                        <td class="task-name">Proposals & Closing</td>
+                        <td><div class="gantt-bar bar-some"></div></td>
+                        <td><div class="gantt-bar bar-medium"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                    </tr>
+                    <tr style="animation-delay: 0.7s;">
+                        <td class="task-name">Onboarding (Rolling Batches)</td>
+                        <td></td>
+                        <td></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                    </tr>
+                    <tr style="animation-delay: 0.8s;">
+                        <td class="task-name">Go Live & Revenue Ramp</td>
+                        <td></td>
+                        <td></td>
+                        <td><div class="gantt-bar bar-medium"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                    </tr>
+                    <tr style="animation-delay: 0.9s;">
+                        <td class="task-name">Support & Optimization</td>
+                        <td><div class="gantt-bar bar-some"></div></td>
+                        <td><div class="gantt-bar bar-some"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                    </tr>
+                     <tr style="animation-delay: 1.0s;" class="headcount-row">
+                        <td class="task-name">GTM Team Size</td>
+                        <td class="headcount-value">1 <span>(You)</span></td>
+                        <td class="headcount-value">1 <span>(You)</span></td>
+                        <td class="headcount-value">2 <span>(+1 BizDev)</span></td>
+                        <td class="headcount-value">3 <span>(+1 Pub Success)</span></td>
+                        <td class="headcount-value">3</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color" style="background-color: var(--purple);"></div>Very High</div>
+                <div class="legend-item"><div class="legend-color" style="background-color: var(--teal);"></div>High</div>
+                <div class="legend-item"><div class="legend-color" style="background-color: var(--gray);"></div>Medium</div>
+                <div class="legend-item"><div class="legend-color" style="background-color: #444;"></div>Some Activity</div>
             </div>
         </div>
     </div>
 
     <!-- Arrows -->
-    <a href="index.html" class="arrow-nav arrow-left">←</a>
-    <a href="slide3.html" class="arrow-nav arrow-right">→</a>
+    <a href="slide2.html" class="arrow-nav arrow-left">←</a>
+    <a href="slide4.html" class="arrow-nav arrow-right">→</a>
 </body>
 </html>
