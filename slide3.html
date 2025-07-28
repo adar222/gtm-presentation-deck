@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Slide 3 - 5-Month Launch Plan</title>
+    <title>Slide 3 - Weekly Gantt – Q1 2026</title>
     <!-- Google Fonts Import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,7 +44,7 @@
 
         .gantt-content {
             text-align: center;
-            max-width: 1100px;
+            max-width: 1400px; /* Wider for more columns */
             width: 100%;
         }
 
@@ -60,10 +60,10 @@
         .gantt-chart {
             width: 100%;
             border-collapse: collapse;
-            font-size: 1rem;
+            font-size: 0.8rem; /* Smaller font for more columns */
         }
         .gantt-chart th, .gantt-chart td {
-            padding: 0.75rem;
+            padding: 0.5rem;
             text-align: center;
             border-bottom: 1px solid #333;
         }
@@ -75,16 +75,18 @@
         }
         .gantt-chart .task-name {
             text-align: left;
-            width: 35%;
+            width: 20%;
             font-weight: 700;
             color: var(--white);
         }
         
         .gantt-bar {
-            height: 12px;
-            border-radius: 6px;
-            width: 0; /* Initial width for animation */
-            animation: growBar 0.8s ease-out forwards;
+            height: 10px;
+            border-radius: 5px;
+            width: 80%;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInBar 0.8s ease-out forwards;
         }
         
         .bar-very-high { background-color: var(--purple); }
@@ -97,27 +99,6 @@
             animation: fadeInRow 0.5s ease-out forwards;
         }
 
-        .legend {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--gray);
-            animation: fadeInUp 0.8s ease-out 1.5s forwards;
-            opacity: 0;
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -126,13 +107,9 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes growBar {
-            from { width: 0; }
-            to { width: 100%; }
+        @keyframes fadeInBar {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .arrow-nav {
@@ -166,67 +143,87 @@
 <body>
     <div class="slide-container">
         <div class="gantt-content">
-            <h1>5-Month Launch Plan Overview</h1>
+            <h1>Weekly Gantt – Q1 2026 Execution</h1>
             <table class="gantt-chart">
                 <thead>
                     <tr>
-                        <th class="task-name">Core Pillar / Month</th>
-                        <th>Nov</th>
-                        <th>Dec</th>
-                        <th>Jan</th>
-                        <th>Feb</th>
-                        <th>Mar</th>
+                        <th class="task-name">Task/Week</th>
+                        <th>Jan 1-7</th><th>Jan 8-14</th><th>Jan 15-21</th><th>Jan 22-28</th>
+                        <th>Feb 1-7</th><th>Feb 8-14</th><th>Feb 15-21</th><th>Feb 22-28</th>
+                        <th>Mar 1-7</th><th>Mar 8-14</th><th>Mar 15-21</th><th>Mar 22-31</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="animation-delay: 0.5s;">
-                        <td class="task-name">Outreach & Pipeline Build</td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td class="task-name">Outreach</td>
                         <td><div class="gantt-bar bar-very-high"></div></td>
                         <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-some"></div></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     </tr>
                     <tr style="animation-delay: 0.6s;">
-                        <td class="task-name">Proposals & Closing</td>
-                        <td><div class="gantt-bar bar-some"></div></td>
-                        <td><div class="gantt-bar bar-medium"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td class="task-name">Qualification & Proposals</td>
                         <td><div class="gantt-bar bar-very-high"></div></td>
                         <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     </tr>
                     <tr style="animation-delay: 0.7s;">
-                        <td class="task-name">Onboarding (Rolling Batches)</td>
+                        <td class="task-name">Onboard Batch 1 (10)</td>
                         <td></td>
-                        <td></td>
                         <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     </tr>
                     <tr style="animation-delay: 0.8s;">
-                        <td class="task-name">Go Live & Revenue Ramp</td>
-                        <td></td>
-                        <td></td>
+                        <td class="task-name">Onboard Batch 2 (15)</td>
+                        <td></td><td></td>
                         <td><div class="gantt-bar bar-some"></div></td>
                         <td><div class="gantt-bar bar-high"></div></td>
                         <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td></td>
+                        <td><div class="gantt-bar bar-some"></div></td>
+                        <td></td><td></td><td></td><td></td><td></td>
                     </tr>
                     <tr style="animation-delay: 0.9s;">
-                        <td class="task-name">Support & Optimization</td>
+                        <td class="task-name">Onboard Batch 3 (15)</td>
+                        <td></td><td></td><td></td><td></td><td></td>
                         <td><div class="gantt-bar bar-some"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td></td><td></td><td></td><td></td>
+                    </tr>
+                    <tr style="animation-delay: 1.0s;">
+                        <td class="task-name">Go Live & Optimize Rev</td>
+                        <td></td><td></td>
                         <td><div class="gantt-bar bar-some"></div></td>
                         <td><div class="gantt-bar bar-high"></div></td>
                         <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                    </tr>
+                    <tr style="animation-delay: 1.1s;">
+                        <td class="task-name">Support & Monitoring</td>
+                        <td></td><td></td>
+                        <td><div class="gantt-bar bar-some"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
+                        <td><div class="gantt-bar bar-very-high"></div></td>
                         <td><div class="gantt-bar bar-very-high"></div></td>
                     </tr>
                 </tbody>
             </table>
-            <div class="legend">
-                <div class="legend-item"><div class="legend-color" style="background-color: var(--purple);"></div>Very High</div>
-                <div class="legend-item"><div class="legend-color" style="background-color: var(--teal);"></div>High</div>
-                <div class="legend-item"><div class="legend-color" style="background-color: var(--gray);"></div>Medium</div>
-                <div class="legend-item"><div class="legend-color" style="background-color: #444;"></div>Some Activity</div>
-            </div>
         </div>
     </div>
 
