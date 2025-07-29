@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Slide 6 - The CRM Pipeline View</title>
+    <!-- Google Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Color Palette */
+        :root {
+            --background: #101010;
+            --purple: #9D4EDD;
+            --teal: #48BFE3;
+            --red: #D34037;
+            --green: #2ECC71;
+            --gray: #9F9F9F;
+            --white: #FFFFFF;
+            --card-bg: #1e1e1e;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--background);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 2rem;
+        }
+
+        .crm-content {
+            text-align: center;
+            max-width: 1600px; /* Wider for Kanban board */
+            width: 100%;
+        }
+
+        .crm-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--white);
+            margin: 0 0 1rem 0;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .crm-content .subtitle {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease-out 0.2s;
+            animation-fill-mode: backwards;
+        }
+        
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .kanban-column {
+            background-color: #181818;
+            border-radius: 8px;
+            padding: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
+        
+        .column-header {
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #333;
+            margin-bottom: 1rem;
+        }
+        .column-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .column-count {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .publisher-card {
+            background-color: var(--card-bg);
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+            text-align: left;
+            border-left: 3px solid var(--purple);
+            transition: transform 0.2s ease;
+        }
+        .publisher-card:hover {
+            transform: translateX(5px);
+        }
+        .publisher-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .deal-value {
+            font-size: 0.8rem;
+            color: var(--green);
+        }
+        
+        .takeaways {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-around;
+            text-align: left;
+        }
+        .takeaway-item {
+            width: 30%;
+            opacity: 0;
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
+        .takeaway-item strong {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--teal);
+        }
+        .takeaway-item span {
+            color: var(--gray);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .arrow-nav {
+            position: fixed;
+            bottom: 40px;
+            font-size: 2rem;
+            color: var(--purple);
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            padding: 0.4em 0.5em;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+            z-index: 100;
+        }
+
+        .arrow-nav:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+        }
+        
+        .arrow-left {
+            left: 40px;
+        }
+
+        .arrow-right {
+            right: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="crm-content">
+            <h1>Tracking & Optimization: The CRM Pipeline View</h1>
+            <p class="subtitle">How we will manage our pipeline, forecast revenue, and optimize performance in real-time.</p>
+            
+            <div class="kanban-board">
+                <!-- Columns -->
+                <div class="kanban-column" style="animation-delay: 0.5s;">
+                    <div class="column-header"><div class="column-title">Target List</div><div class="column-count">1000+ Pubs</div></div>
+                    <div class="publisher-card"><div class="publisher-name">PC Gamer</div></div>
+                    <div class="publisher-card"><div class="publisher-name">Kotaku</div></div>
+                </div>
+                <div class="kanban-column" style="animation-delay: 0.6s;">
+                    <div class="column-header"><div class="column-title">Outreach</div><div class="column-count">500+ Engagements</div></div>
+                     <div class="publisher-card"><div class="publisher-name">Game Rant</div></div>
+                </div>
+                <div class="kanban-column" style="animation-delay: 0.7s;">
+                    <div class="column-header"><div class="column-title">Qualified</div><div class="column-count">250+ Pubs</div></div>
+                    <div class="publisher-card"><div class="publisher-name">Fextralife</div></div>
+                    <div class="publisher-card"><div class="publisher-name">Wowhead</div></div>
+                </div>
+                <div class="kanban-column" style="animation-delay: 0.8s;">
+                    <div class="column-header"><div class="column-title">Proposal Sent</div><div class="column-count">~80 Pubs</div></div>
+                    <div class="publisher-card"><div class="publisher-name">IGN</div><div class="deal-value">~$6k/mo</div></div>
+                </div>
+                <div class="kanban-column" style="animation-delay: 0.9s;">
+                    <div class="column-header"><div class="column-title">Negotiation</div><div class="column-count"></div></div>
+                    <div class="publisher-card"><div class="publisher-name">GameSpot</div><div class="deal-value">~$4k/mo</div></div>
+                </div>
+                <div class="kanban-column" style="animation-delay: 1.0s;">
+                    <div class="column-header"><div class="column-title">Closed - Won</div><div class="column-count">~40 Deals</div></div>
+                </div>
+            </div>
+            
+            <div class="takeaways">
+                <div class="takeaway-item" style="animation-delay: 1.2s;"><strong>Forecast Revenue:</strong><span> The total value of deals in 'Proposal' and 'Negotiation' gives us a clear, data-driven forecast.</span></div>
+                <div class="takeaway-item" style="animation-delay: 1.4s;"><strong>Manage the Team:</strong><span> Aim for a healthy number of deals in each stage and identify where to focus our efforts.</span></div>
+                <div class="takeaway-item" style="animation-delay: 1.6s;"><strong>Identify Bottlenecks:</strong><span> Analyze where leads are getting stuck in the funnel, so I know exactly which stage needs fixing to keep deals moving forward.</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arrows -->
+    <a href="slide5.html" class="arrow-nav arrow-left">←</a>
+    <a href="slide7.html" class="arrow-nav arrow-right">→</a>
+</body>
+</html>
