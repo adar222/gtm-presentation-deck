@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Slide 5 - Risks & Mitigation</title>
+    <!-- Google Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Color Palette */
+        :root {
+            --background: #101010;
+            --purple: #9D4EDD;
+            --teal: #48BFE3;
+            --red: #D34037;
+            --green: #2ECC71;
+            --gray: #9F9F9F;
+            --white: #FFFFFF;
+            --card-bg: #1e1e1e;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--background);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 2rem;
+        }
+
+        .risk-content {
+            text-align: center;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .risk-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--white);
+            margin: 0 0 3rem 0;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .risk-grid {
+            display: flex;
+            gap: 3rem;
+            width: 100%;
+        }
+
+        .risk-column, .mitigation-column {
+            flex: 1;
+            text-align: left;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            opacity: 0;
+            animation: zoomIn 0.7s ease-out forwards;
+        }
+        .risk-column { animation-delay: 0.5s; border-left: 4px solid var(--red); }
+        .mitigation-column { animation-delay: 0.8s; border-left: 4px solid var(--green); }
+
+        .column-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .column-icon {
+            width: 32px;
+            height: 32px;
+        }
+        .risk-column .column-icon { color: var(--red); }
+        .mitigation-column .column-icon { color: var(--green); }
+
+        .column-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .risk-list {
+            list-style: none;
+            padding: 0;
+        }
+        .risk-list li {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .risk-list strong {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+        .risk-list span {
+            color: var(--gray);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .arrow-nav {
+            position: fixed;
+            bottom: 40px;
+            font-size: 2rem;
+            color: var(--purple);
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            padding: 0.4em 0.5em;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+            z-index: 100;
+        }
+
+        .arrow-nav:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+        }
+        
+        .arrow-left {
+            left: 40px;
+        }
+
+        .arrow-right {
+            right: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="risk-content">
+            <h1>Risks & Mitigation</h1>
+            <div class="risk-grid">
+                <!-- Risks Column -->
+                <div class="risk-column">
+                    <div class="column-header">
+                        <div class="column-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" /></svg></div>
+                        <h2 class="column-title">Potential Risks</h2>
+                    </div>
+                    <ul class="risk-list">
+                        <li><strong>Lower Funnel Conversion</strong><span>Actual close rates are lower than the forecasted 50%, requiring more top-of-funnel activity.</span></li>
+                        <li><strong>Technical Delays</strong><span>Publisher-side technical hurdles slow down the integration and onboarding process.</span></li>
+                        <li><strong>CPM Seasonality</strong><span>Q1 is traditionally a softer quarter for ad spend, which could impact initial eCPM performance.</span></li>
+                    </ul>
+                </div>
+                <!-- Mitigation Column -->
+                <div class="mitigation-column">
+                    <div class="column-header">
+                        <div class="column-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" /></svg></div>
+                        <h2 class="column-title">Mitigation Plan</h2>
+                    </div>
+                     <ul class="risk-list">
+                        <li><strong>Weekly Funnel Checks</strong><span>Monitor conversion rates in real-time and quickly adjust outreach volume or messaging as needed.</span></li>
+                        <li><strong>Dedicated Onboarding</strong><span>Our Publisher Success Manager will provide hands-on support to resolve issues and accelerate time-to-revenue.</span></li>
+                        <li><strong>Leverage Unique Demand</strong><span>Overwolf's exclusive, gamer-focused demand is less susceptible to broad market seasonality and performs consistently.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arrows -->
+    <a href="slide4.html" class="arrow-nav arrow-left">←</a>
+    <a href="slide6.html" class="arrow-nav arrow-right">→</a>
+</body>
+</html>
