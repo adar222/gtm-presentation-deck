@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Slide 7 - Conclusion & Next Steps</title>
+    <!-- Google Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Color Palette */
+        :root {
+            --background: #101010;
+            --purple: #9D4EDD;
+            --teal: #48BFE3;
+            --red: #D34037;
+            --green: #2ECC71;
+            --gray: #9F9F9F;
+            --white: #FFFFFF;
+            --card-bg: #1e1e1e;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--background);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 2rem;
+        }
+
+        .conclusion-content {
+            text-align: center;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .conclusion-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--white);
+            margin: 0 0 2rem 0;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .recommendation {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: zoomIn 0.7s ease-out 0.5s forwards;
+        }
+        
+        .next-steps-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .step-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.7s ease-out forwards;
+            border: 1px solid #333;
+        }
+
+        .step-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 3rem;
+            color: var(--purple);
+        }
+        
+        .step-text {
+            font-size: 1rem;
+            color: var(--gray);
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .arrow-nav {
+            position: fixed;
+            bottom: 40px;
+            font-size: 2rem;
+            color: var(--purple);
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            padding: 0.4em 0.5em;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+            z-index: 100;
+        }
+
+        .arrow-nav:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+        }
+        
+        .arrow-left {
+            left: 40px;
+        }
+
+        .arrow-right {
+            right: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="conclusion-content">
+            <h1>Conclusion & Next Steps</h1>
+            <div class="recommendation">
+                Begin Nov 2025, monitor progress weekly, and secure resources to execute the plan.
+            </div>
+            <div class="next-steps-grid">
+                <div class="step-card" style="animation-delay: 0.8s;">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Align on the ramp model (Fast vs. Conservative or a blended path).</div>
+                </div>
+                <div class="step-card" style="animation-delay: 1.0s;">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Confirm resources for GTM and publisher onboarding.</div>
+                </div>
+                <div class="step-card" style="animation-delay: 1.2s;">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Launch: Start outreach, execute the plan, and track progress.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arrows -->
+    <a href="slide6.html" class="arrow-nav arrow-left">←</a>
+    <a href="slide8.html" class="arrow-nav arrow-right">→</a>
+</body>
+</html>
