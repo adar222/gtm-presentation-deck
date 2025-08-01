@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwolf GTM - Feedback Loops</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ow-red: #D34037;
+            --ow-white: #FFFFFF;
+            --ow-gray: #9F9F9F;
+            --ow-dark-gray: #1E1E1E;
+            --ow-black: #101010;
+            --info-blue: #48BFE3;
+            --info-purple: #9D4EDD;
+            --info-green: #2ECC71;
+            --border-color: #333333;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--ow-black);
+            font-family: 'Lato', sans-serif;
+            color: var(--ow-white);
+            overflow: hidden;
+        }
+
+        .slide-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+            padding: 3rem;
+            box-sizing: border-box;
+        }
+
+        .slide-container {
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s ease-out forwards;
+        }
+
+        .slide-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5rem;
+        }
+        
+        .flywheel-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        .flywheel-center {
+            width: 150px;
+            height: 150px;
+            background-color: var(--ow-dark-gray);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: 2px solid var(--border-color);
+            z-index: 2;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: zoomIn 0.8s 1s ease-out forwards;
+        }
+
+        .flywheel-segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: zoomIn 0.8s ease-out forwards;
+        }
+
+        .flywheel-segment:nth-child(2) { animation-delay: 1.5s; }
+        .flywheel-segment:nth-child(3) { animation-delay: 2.0s; }
+        .flywheel-segment:nth-child(4) { animation-delay: 2.5s; }
+
+        .segment-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            text-align: center;
+            transform-origin: -150px 0; /* Pivot around the center */
+        }
+
+        .segment-content.measure { transform: translate(-50%, -50%) rotate(0deg) translate(250px) rotate(0deg); }
+        .segment-content.analyze { transform: translate(-50%, -50%) rotate(120deg) translate(250px) rotate(-120deg); }
+        .segment-content.act { transform: translate(-50%, -50%) rotate(240deg) translate(250px) rotate(-240deg); }
+
+        .segment-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            fill: var(--ow-white);
+        }
+        .segment-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .segment-description {
+            font-size: 0.9rem;
+            color: var(--ow-gray);
+        }
+
+        .flywheel-arrows {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px dashed var(--border-color);
+            z-index: 1;
+            opacity: 0;
+            animation: spin 30s linear infinite, fadeIn 1s 1.2s ease-out forwards;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .nav-arrow {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: var(--ow-white);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: bob 3s ease-in-out infinite, glow 3s ease-in-out infinite;
+        }
+        
+        .nav-arrow:not(.disabled):hover {
+            transform: scale(1.1);
+            background-color: rgba(211, 64, 55, 0.5);
+            box-shadow: 0 0 25px var(--ow-red), inset 0 0 10px rgba(211, 64, 55, 0.3);
+            animation-play-state: paused;
+        }
+        
+        .nav-arrow svg {
+            width: 50%;
+            height: 50%;
+            fill: currentColor;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
+        
+        @media (max-width: 768px) {
+            .flywheel-container {
+                transform: scale(0.7);
+            }
+            .slide-title {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-wrapper">
+        <div class="slide-container">
+            <h1 class="slide-title">Feedback Loops & Optimization</h1>
+            
+            <div class="flywheel-container">
+                <div class="flywheel-center">Growth Engine</div>
+                <div class="flywheel-segment">
+                    <div class="segment-content measure">
+                        <svg class="segment-icon" viewBox="0 0 24 24"><path d="M13,9V3.5L18.5,9M6,2H14L20,8V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2M12,18C14.21,18 16,16.21 16,14C16,11.79 14.21,10 12,10C9.79,10 8,11.79 8,14C8,16.21 9.79,18 12,18M12,12A2,2 0 0,1 14,14A2,2 0 0,1 12,16A2,2 0 0,1 10,14A2,2 0 0,1 12,12Z"/></svg>
+                        <h3 class="segment-title" style="color: var(--info-blue);">Measure</h3>
+                        <p class="segment-description">Live dashboards provide real-time visibility into all core KPIs.</p>
+                    </div>
+                </div>
+                <div class="flywheel-segment">
+                    <div class="segment-content analyze">
+                        <svg class="segment-icon" viewBox="0 0 24 24"><path d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11.5A3.5,3.5 0 0,0 11.5,8A3.5,3.5 0 0,0 8,4.5A3.5,3.5 0 0,0 4.5,8A3.5,3.5 0 0,0 8,11.5M16,11.5A3.5,3.5 0 0,0 19.5,8A3.5,3.5 0 0,0 16,4.5A3.5,3.5 0 0,0 12.5,8A3.5,3.5 0 0,0 16,11.5Z"/></svg>
+                        <h3 class="segment-title" style="color: var(--info-purple);">Analyze</h3>
+                        <p class="segment-description">Weekly meetings to review performance, identify trends, and discuss opportunities.</p>
+                    </div>
+                </div>
+                 <div class="flywheel-segment">
+                    <div class="segment-content act">
+                        <svg class="segment-icon" viewBox="0 0 24 24"><path d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z"/></svg>
+                        <h3 class="segment-title" style="color: var(--info-green);">Act</h3>
+                        <p class="segment-description">Rapid response to address lagging metrics and double down on successful strategies.</p>
+                    </div>
+                </div>
+                <div class="flywheel-arrows"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+         <a href="slide9.html" class="nav-arrow" aria-label="Previous Slide">
+            <svg style="transform: rotate(180deg);" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <a href="slide11.html" class="nav-arrow" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </div>
+
+</body>
+</html>
