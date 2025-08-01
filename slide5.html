@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Overwolf GTM - Weekly Gantt</title>
+    <title>Overwolf GTM - Q1 Conversion Funnel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
@@ -16,9 +16,6 @@
             --ow-black: #101010;
             --info-blue: #48BFE3;
             --info-purple: #9D4EDD;
-            --info-green: #2ECC71;
-            --bar-medium: #6c6c6c;
-            --bar-some: #4a4a4a;
             --border-color: #333333;
         }
 
@@ -30,6 +27,7 @@
             background-color: var(--ow-black);
             font-family: 'Lato', sans-serif;
             color: var(--ow-white);
+            overflow-x: hidden;
         }
 
         .slide-wrapper {
@@ -45,7 +43,7 @@
 
         .slide-container {
             text-align: center;
-            max-width: 1400px;
+            max-width: 800px;
             width: 100%;
             opacity: 0;
             animation: fadeIn 1s 0.5s ease-out forwards;
@@ -55,95 +53,84 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 2.5rem;
             font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .slide-subtitle {
+            font-size: 1.2rem;
+            color: var(--ow-gray);
             margin-bottom: 3rem;
         }
         
-        .gantt-chart-container {
+        .conversion-funnel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .funnel-stage {
             background-color: var(--ow-dark-gray);
-            border-radius: 16px;
-            padding: 2.5rem;
             border: 1px solid var(--border-color);
-            overflow-x: auto; /* Allows horizontal scrolling on smaller screens */
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFadeIn 0.7s ease-out forwards;
+            transition: all 0.3s ease;
+        }
+        
+        .funnel-stage:nth-of-type(1) { width: 100%; animation-delay: 1.2s; }
+        .funnel-stage:nth-of-type(2) { width: 90%; animation-delay: 1.8s; }
+        .funnel-stage:nth-of-type(3) { width: 80%; animation-delay: 2.4s; }
+        .funnel-stage:nth-of-type(4) { width: 70%; animation-delay: 3.0s; }
+        .funnel-stage:nth-of-type(5) { width: 60%; animation-delay: 3.6s; }
+
+
+        .funnel-stage .label {
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
-        .gantt-chart {
-            width: 100%;
-            min-width: 1200px; /* Ensures layout is maintained */
-            border-collapse: collapse;
-            text-align: center;
-        }
-
-        .gantt-chart th, .gantt-chart td {
-            padding: 1rem 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-            white-space: nowrap;
-        }
-
-        .gantt-chart th {
+        .funnel-stage .value {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            color: var(--ow-gray);
-            padding-bottom: 1rem;
-            font-size: 0.9rem;
+            font-size: 1.5rem;
         }
         
-        .gantt-chart .task-name {
-            text-align: left;
-            font-weight: 700;
-            width: 20%;
+        .funnel-stage.final {
+            border-color: var(--info-purple);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
+        }
+        .funnel-stage.final .value {
+            color: var(--info-purple);
         }
 
-        .gantt-chart tbody tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .gantt-row {
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        .gantt-row:nth-of-type(1) { animation-delay: 1.2s; }
-        .gantt-row:nth-of-type(2) { animation-delay: 1.4s; }
-        .gantt-row:nth-of-type(3) { animation-delay: 1.6s; }
-        .gantt-row:nth-of-type(4) { animation-delay: 1.8s; }
-        .gantt-row:nth-of-type(5) { animation-delay: 2.0s; }
-        .gantt-row:nth-of-type(6) { animation-delay: 2.2s; }
-        .gantt-row:nth-of-type(7) { animation-delay: 2.4s; }
-
-        .gantt-bar {
-            height: 12px;
-            border-radius: 6px;
-            width: 80%;
-            margin: 0 auto;
-        }
-        
-        .bar-purple { background-color: var(--info-purple); }
-        .bar-blue { background-color: var(--info-blue); }
-        .bar-medium { background-color: var(--bar-medium); }
-        .bar-some { background-color: var(--bar-some); }
-        
-        .legend {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2.5rem;
-            opacity: 0;
-            animation: fadeIn 1s 2.8s ease-out forwards;
-        }
-        
-        .legend-item {
+        .conversion-rate {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
+            gap: 0.75rem;
             color: var(--ow-gray);
+            margin: 0.5rem 0 1.5rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFadeIn 0.7s ease-out forwards;
         }
         
-        .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+        .conversion-rate svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--ow-gray);
         }
+
+        /* Animation Delays */
+        .conversion-rate:nth-of-type(1) { animation-delay: 1.5s; }
+        .conversion-rate:nth-of-type(2) { animation-delay: 2.1s; }
+        .conversion-rate:nth-of-type(3) { animation-delay: 2.7s; }
+        .conversion-rate:nth-of-type(4) { animation-delay: 3.3s; }
 
         .navigation {
             position: fixed;
@@ -186,6 +173,10 @@
         }
         
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUpFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
         
@@ -195,140 +186,45 @@
 
     <div class="slide-wrapper">
         <div class="slide-container">
-            <h1 class="slide-title">Weekly Gantt - Q1 2026 Execution</h1>
-
-            <div class="gantt-chart-container">
-                <table class="gantt-chart">
-                    <thead>
-                        <tr>
-                            <th class="task-name">Task/Week</th>
-                            <th>Jan 1-7</th>
-                            <th>Jan 8-14</th>
-                            <th>Jan 15-21</th>
-                            <th>Jan 22-28</th>
-                            <th>Feb 1-7</th>
-                            <th>Feb 8-14</th>
-                            <th>Feb 15-21</th>
-                            <th>Feb 22-28</th>
-                            <th>Mar 1-7</th>
-                            <th>Mar 8-14</th>
-                            <th>Mar 15-21</th>
-                            <th>Mar 22-31</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="gantt-row">
-                            <td class="task-name">Outreach</td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-blue"></div></td>
-                            <td><div class="gantt-bar bar-medium"></div></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="gantt-row">
-                            <td class="task-name">Qualification & Proposals</td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-blue"></div></td>
-                            <td><div class="gantt-bar bar-blue"></div></td>
-                            <td><div class="gantt-bar bar-blue"></div></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="gantt-row">
-                            <td class="task-name">Onboard Batch 1 (10)</td>
-                            <td></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-blue"></div></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="gantt-row">
-                            <td class="task-name">Onboard Batch 2 (15)</td>
-                            <td></td>
-                            <td></td>
-                            <td><div class="gantt-bar bar-medium"></div></td>
-                            <td><div class="gantt-bar bar-blue"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-medium"></div></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="gantt-row">
-                            <td class="task-name">Onboard Batch 3 (15)</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><div class="gantt-bar bar-some"></div></td>
-                            <td><div class="gantt-bar bar-blue"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="gantt-row">
-                            <td class="task-name">Go Live & Optimize Rev</td>
-                            <td></td>
-                            <td></td>
-                            <td><div class="gantt-bar bar-medium"></div></td>
-                            <td><div class="gantt-bar bar-blue"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                        </tr>
-                         <tr class="gantt-row">
-                            <td class="task-name">Support & Monitoring</td>
-                            <td></td>
-                            <td></td>
-                            <td><div class="gantt-bar bar-medium"></div></td>
-                            <td><div class="gantt-bar bar-blue"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                            <td><div class="gantt-bar bar-purple"></div></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="legend">
-                    <div class="legend-item"><div class="legend-color" style="background-color: var(--info-purple);"></div> Very High</div>
-                    <div class="legend-item"><div class="legend-color" style="background-color: var(--info-blue);"></div> High</div>
-                    <div class="legend-item"><div class="legend-color" style="background-color: var(--bar-medium);"></div> Medium</div>
-                    <div class="legend-item"><div class="legend-color" style="background-color: var(--bar-some);"></div> Some Activity</div>
+            <h1 class="slide-title">The Q1 Conversion Funnel</h1>
+            <p class="slide-subtitle">~40 closed deals by the end of March.</p>
+            
+            <div class="conversion-funnel">
+                <div class="funnel-stage">
+                    <div class="label">Outreach</div>
+                    <div class="value">1000+</div>
+                </div>
+                <div class="conversion-rate">
+                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,18L7,13H10V9H14V13H17L12,18Z"/></svg>
+                    <span>50% Engagement Rate</span>
+                </div>
+                <div class="funnel-stage">
+                    <div class="label">Active Engagements</div>
+                    <div class="value">~500</div>
+                </div>
+                 <div class="conversion-rate">
+                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,18L7,13H10V9H14V13H17L12,18Z"/></svg>
+                    <span>50% Qualification Rate</span>
+                </div>
+                <div class="funnel-stage">
+                    <div class="label">Qualified Publishers</div>
+                    <div class="value">~250</div>
+                </div>
+                 <div class="conversion-rate">
+                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,18L7,13H10V9H14V13H17L12,18Z"/></svg>
+                    <span>30% Proposal Rate</span>
+                </div>
+                <div class="funnel-stage">
+                    <div class="label">Proposals Sent</div>
+                    <div class="value">~80</div>
+                </div>
+                 <div class="conversion-rate">
+                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,18L7,13H10V9H14V13H17L12,18Z"/></svg>
+                    <span>50% Close Rate</span>
+                </div>
+                <div class="funnel-stage final">
+                    <div class="label">Closed Deals</div>
+                    <div class="value">~40</div>
                 </div>
             </div>
         </div>
