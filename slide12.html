@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwolf GTM - Next Steps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ow-red: #D34037;
+            --ow-white: #FFFFFF;
+            --ow-gray: #9F9F9F;
+            --ow-dark-gray: #1E1E1E;
+            --ow-black: #101010;
+            --info-blue: #48BFE3;
+            --info-purple: #9D4EDD;
+            --info-green: #2ECC71;
+            --border-color: #333333;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--ow-black);
+            font-family: 'Lato', sans-serif;
+            color: var(--ow-white);
+            overflow-x: hidden;
+        }
+
+        .slide-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+            padding: 3rem;
+            box-sizing: border-box;
+        }
+
+        .slide-container {
+            text-align: center;
+            max-width: 1100px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s ease-out forwards;
+        }
+
+        .slide-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5rem;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .step-card {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFadeIn 0.7s ease-out forwards;
+        }
+
+        .step-card:nth-of-type(1) { animation-delay: 1.2s; }
+        .step-card:nth-of-type(2) { animation-delay: 1.5s; }
+        .step-card:nth-of-type(3) { animation-delay: 1.8s; }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem auto;
+            fill: var(--info-purple);
+        }
+
+        .step-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 1rem;
+            color: var(--ow-gray);
+            line-height: 1.6;
+        }
+        
+        .close-section {
+            opacity: 0;
+            animation: fadeIn 1s 2.5s ease-out forwards;
+        }
+
+        .thank-you {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--info-green);
+        }
+
+        .qa {
+            font-size: 1.2rem;
+            color: var(--ow-gray);
+            margin-top: 0.5rem;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .nav-arrow {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: var(--ow-white);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: bob 3s ease-in-out infinite, glow 3s ease-in-out infinite;
+        }
+        
+        .nav-arrow:not(.disabled):hover {
+            transform: scale(1.1);
+            background-color: rgba(211, 64, 55, 0.5);
+            box-shadow: 0 0 25px var(--ow-red), inset 0 0 10px rgba(211, 64, 55, 0.3);
+            animation-play-state: paused;
+        }
+        
+        .nav-arrow svg {
+            width: 50%;
+            height: 50%;
+            fill: currentColor;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUpFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
+        
+    </style>
+</head>
+<body>
+
+    <div class="slide-wrapper">
+        <div class="slide-container">
+            <h1 class="slide-title">Next Steps</h1>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <svg class="step-icon" viewBox="0 0 24 24"><path d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11.5A3.5,3.5 0 0,0 11.5,8A3.5,3.5 0 0,0 8,4.5A3.5,3.5 0 0,0 4.5,8A3.5,3.5 0 0,0 8,11.5M16,11.5A3.5,3.5 0 0,0 19.5,8A3.5,3.5 0 0,0 16,4.5A3.5,3.5 0 0,0 12.5,8A3.5,3.5 0 0,0 16,11.5Z"/></svg>
+                    <h3 class="step-title">Finalize Team Build</h3>
+                    <p class="step-description">Secure approval for the initial team structure and begin the hiring process for the Sr. Sales Manager role.</p>
+                </div>
+                <div class="step-card">
+                    <svg class="step-icon" viewBox="0 0 24 24"><path d="M20,6H4V4H20V6M20,12H4V10H20V12M20,18H4V16H20V18M21,2H3C1.9,2 1,2.9 1,4V20C1,21.1 1.9,22 3,22H21C22.1,22 23,21.1 23,20V4C23,2.9 22.1,2 21,2Z"/></svg>
+                    <h3 class="step-title">Lock Key Resources</h3>
+                    <p class="step-description">Allocate the necessary budget and technical resources to support the GTM plan and operational framework.</p>
+                </div>
+                <div class="step-card">
+                    <svg class="step-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/></svg>
+                    <h3 class="step-title">Execute First Milestones</h3>
+                    <p class="step-description">Begin publisher outreach immediately and target the first go-live partners to kickstart the revenue ramp.</p>
+                </div>
+            </div>
+
+            <div class="close-section">
+                <h2 class="thank-you">Thank You</h2>
+                <p class="qa">Q&A</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+         <a href="slide11.html" class="nav-arrow" aria-label="Previous Slide">
+            <svg style="transform: rotate(180deg);" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <a href="index.html" class="nav-arrow" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </div>
+
+</body>
+</html>
