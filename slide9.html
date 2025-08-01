@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwolf GTM - KPIs & Metrics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ow-red: #D34037;
+            --ow-white: #FFFFFF;
+            --ow-gray: #9F9F9F;
+            --ow-dark-gray: #1E1E1E;
+            --ow-black: #101010;
+            --info-blue: #48BFE3;
+            --info-purple: #9D4EDD;
+            --info-green: #2ECC71;
+            --border-color: #333333;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--ow-black);
+            font-family: 'Lato', sans-serif;
+            color: var(--ow-white);
+            overflow-x: hidden;
+        }
+
+        .slide-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+            padding: 3rem;
+            box-sizing: border-box;
+        }
+
+        .slide-container {
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s ease-out forwards;
+        }
+
+        .slide-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+        }
+        
+        .kpi-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            text-align: left;
+        }
+
+        @media (max-width: 900px) {
+            .kpi-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .kpi-category h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideUpFadeIn 0.7s ease-out forwards;
+        }
+
+        .kpi-category.growth h2 {
+            color: var(--info-purple);
+            animation-delay: 1s;
+        }
+        .kpi-category.health h2 {
+            color: var(--info-green);
+            animation-delay: 1.2s;
+        }
+
+        .kpi-card {
+            background-color: var(--ow-dark-gray);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFadeIn 0.7s ease-out forwards;
+        }
+
+        .growth .kpi-card:nth-of-type(1) { animation-delay: 1.4s; }
+        .growth .kpi-card:nth-of-type(2) { animation-delay: 1.6s; }
+        .growth .kpi-card:nth-of-type(3) { animation-delay: 1.8s; }
+        
+        .health .kpi-card:nth-of-type(1) { animation-delay: 2.0s; }
+        .health .kpi-card:nth-of-type(2) { animation-delay: 2.2s; }
+        .health .kpi-card:nth-of-type(3) { animation-delay: 2.4s; }
+
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            fill: var(--info-blue);
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--ow-gray);
+        }
+
+        .card-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--ow-white);
+        }
+
+        .card-description {
+            font-size: 0.9rem;
+            color: var(--ow-gray);
+            line-height: 1.6;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .nav-arrow {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: var(--ow-white);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: bob 3s ease-in-out infinite, glow 3s ease-in-out infinite;
+        }
+        
+        .nav-arrow:not(.disabled):hover {
+            transform: scale(1.1);
+            background-color: rgba(211, 64, 55, 0.5);
+            box-shadow: 0 0 25px var(--ow-red), inset 0 0 10px rgba(211, 64, 55, 0.3);
+            animation-play-state: paused;
+        }
+        
+        .nav-arrow svg {
+            width: 50%;
+            height: 50%;
+            fill: currentColor;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUpFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
+        
+    </style>
+</head>
+<body>
+
+    <div class="slide-wrapper">
+        <div class="slide-container">
+            <h1 class="slide-title">KPIs & Metrics (What Success Looks Like)</h1>
+            
+            <div class="kpi-layout">
+                <div class="kpi-category growth">
+                    <h2>GTM Engine (Growth)</h2>
+                    <div class="kpi-card">
+                        <div class="card-header">
+                            <svg class="card-icon" viewBox="0 0 24 24"><path d="M11.8,10.9C9.53,10.31 9,9.7 9,8.85C9,7.76 9.91,7 11.7,7C13.57,7 14.44,7.85 14.5,9.1H16.71C16.64,7.38 15.68,5.7 13.79,5.19V3H10.21V5.16C8.27,5.58 6.5,6.84 6.5,8.77C6.5,11.08 8.41,12.23 11.2,12.88C13.7,13.44 14.5,14.28 14.5,15.26C14.5,15.95 14,17 11.8,17C9.94,17 9.13,16.08 9.02,14.9H6.8C6.92,17.09 8.56,18.32 10.48,18.73V21H14V18.85C16.06,18.39 17.5,17.12 17.5,15.1C17.5,12.76 15.53,11.54 11.8,10.9Z"/></svg>
+                            <h3 class="card-title">Net New Revenue</h3>
+                        </div>
+                        <div class="card-value">$1M by Q1</div>
+                        <p class="card-description">Total new programmatic revenue generated.</p>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="card-header">
+                            <svg class="card-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/></svg>
+                            <h3 class="card-title">Win Rate</h3>
+                        </div>
+                        <div class="card-value">25%+</div>
+                        <p class="card-description">% of qualified publisher deals closed.</p>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="card-header">
+                            <svg class="card-icon" viewBox="0 0 24 24"><path d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z"/></svg>
+                            <h3 class="card-title">Onboarding Speed</h3>
+                        </div>
+                        <div class="card-value">&lt; 2 Weeks</div>
+                        <p class="card-description">Average days from contract to first dollar.</p>
+                    </div>
+                </div>
+
+                <div class="kpi-category health">
+                    <h2>Revenue Engine (Health)</h2>
+                    <div class="kpi-card">
+                        <div class="card-header">
+                            <svg class="card-icon" viewBox="0 0 24 24"><path d="M19.5,12C19.5,13.38 18.38,14.5 17,14.5C15.62,14.5 14.5,13.38 14.5,12C14.5,10.62 15.62,9.5 17,9.5C18.38,9.5 19.5,10.62 19.5,12M17,16.5C19.21,16.5 21,14.71 21,12.5C21,10.29 19.21,8.5 17,8.5C14.79,8.5 13,10.29 13,12.5C13,14.71 14.79,16.5 17,16.5M12,14.5C12,13.12 10.88,12 9.5,12C8.12,12 7,13.12 7,14.5C7,15.88 8.12,17 9.5,17C10.88,17 12,15.88 12,14.5M9.5,8.5C11.71,8.5 13.5,10.29 13.5,12.5C13.5,14.71 11.71,16.5 9.5,16.5C7.29,16.5 5.5,14.71 5.5,12.5C5.5,10.29 7.29,8.5 9.5,8.5M17,6.5C17,5.12 15.88,4 14.5,4C13.12,4 12,5.12 12,6.5C12,7.88 13.12,9 14.5,9C15.88,9 17,7.88 17,6.5M9.5,4C10.88,4 12,5.12 12,6.5C12,7.88 10.88,9 9.5,9C8.12,9 7,7.88 7,6.5C7,5.12 8.12,4 9.5,4Z"/></svg>
+                            <h3 class="card-title">Supply Path Health</h3>
+                        </div>
+                        <div class="card-value">20%+</div>
+                        <p class="card-description">% of spend via direct/curated paths.</p>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="card-header">
+                            <svg class="card-icon" viewBox="0 0 24 24"><path d="M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,21C15.91,20.04 19,15.92 19,11.41V6.3L12,3.18L5,6.3V11.41C5,15.92 8.09,20.04 12,21M12,7A2,2 0 0,1 14,9A2,2 0 0,1 12,11A2,2 0 0,1 10,9A2,2 0 0,1 12,7M12,12C13.1,12 14,12.9 14,14C14,15.1 13.1,16 12,16C10.9,16 10,15.1 10,14C10,12.9 10.9,12 12,12Z"/></svg>
+                            <h3 class="card-title">Forecast Accuracy</h3>
+                        </div>
+                        <div class="card-value">±20%</div>
+                        <p class="card-description">Difference between projected and actuals.</p>
+                    </div>
+                     <div class="kpi-card">
+                        <div class="card-header">
+                            <svg class="card-icon" viewBox="0 0 24 24"><path d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H14.9L9,22M10,16V13H12V16H10M10,11V4H12V11H10Z"/></svg>
+                            <h3 class="card-title">Publisher Retention</h3>
+                        </div>
+                        <div class="card-value">97.5%</div>
+                        <p class="card-description">Monthly retention, reflecting partner satisfaction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+         <a href="slide8.html" class="nav-arrow" aria-label="Previous Slide">
+            <svg style="transform: rotate(180deg);" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <a href="slide10.html" class="nav-arrow" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </div>
+
+</body>
+</html>
