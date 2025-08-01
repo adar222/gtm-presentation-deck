@@ -1,224 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Slide 6 - The CRM Pipeline View</title>
-    <!-- Google Fonts Import -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwolf GTM - Team Structure</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom Color Palette */
         :root {
-            --background: #101010;
-            --purple: #9D4EDD;
-            --teal: #48BFE3;
-            --red: #D34037;
-            --green: #2ECC71;
-            --gray: #9F9F9F;
-            --white: #FFFFFF;
-            --card-bg: #1e1e1e;
+            --ow-red: #D34037;
+            --ow-white: #FFFFFF;
+            --ow-gray: #9F9F9F;
+            --ow-dark-gray: #1E1E1E;
+            --ow-black: #101010;
+            --info-blue: #00A9E0;
+            --info-purple: #9E00FF;
+            --info-green: #00E070;
+            --border-color: #333333;
         }
 
-        html, body {
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
             height: 100%;
+            background-color: var(--ow-black);
             font-family: 'Lato', sans-serif;
-            background-color: var(--background);
-            color: var(--white);
-            overflow: hidden;
+            color: var(--ow-white);
+            overflow-x: hidden;
         }
 
-        .slide-container {
+        .slide-wrapper {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             width: 100%;
+            min-height: 100vh;
+            padding: 3rem 2rem;
             box-sizing: border-box;
-            padding: 2rem;
         }
 
-        .crm-content {
+        .slide-container {
             text-align: center;
-            max-width: 1600px; /* Wider for Kanban board */
+            max-width: 1200px;
             width: 100%;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s ease-out forwards;
         }
 
-        .crm-content h1 {
+        .slide-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--white);
-            margin: 0 0 1rem 0;
-            animation: fadeInDown 0.8s ease-out;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
         }
         
-        .crm-content .subtitle {
-            font-family: 'Lato', sans-serif;
-            font-size: 1.2rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
-            animation: fadeInDown 0.8s ease-out 0.2s;
-            animation-fill-mode: backwards;
-        }
-        
-        .kanban-board {
+        .content-grid {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 1rem;
-            width: 100%;
-        }
-
-        .kanban-column {
-            background-color: #181818;
-            border-radius: 8px;
-            padding: 1rem;
-            opacity: 0;
-            animation: fadeInUp 0.7s ease-out forwards;
-        }
-        
-        .column-header {
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #333;
-            margin-bottom: 1rem;
-        }
-        .column-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-        .column-count {
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-
-        .publisher-card {
-            background-color: var(--card-bg);
-            border-radius: 6px;
-            padding: 0.75rem;
-            margin-bottom: 0.75rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
             text-align: left;
-            border-left: 3px solid var(--purple);
-            transition: transform 0.2s ease;
+            align-items: center;
         }
-        .publisher-card:hover {
-            transform: translateX(5px);
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
         }
-        .publisher-name {
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        .deal-value {
-            font-size: 0.8rem;
-            color: var(--green);
-        }
-        
-        .takeaways {
-            margin-top: 2rem;
+
+        /* Org Chart Styling */
+        .org-chart {
             display: flex;
-            justify-content: space-around;
-            text-align: left;
+            flex-direction: column;
+            align-items: center;
         }
-        .takeaway-item {
-            width: 30%;
+
+        .org-box {
+            background-color: var(--ow-dark-gray);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            min-width: 220px;
+            position: relative;
             opacity: 0;
-            animation: fadeInUp 0.7s ease-out forwards;
+            transform: scale(0.95);
+            animation: zoomIn 0.7s ease-out forwards;
         }
-        .takeaway-item strong {
+
+        .org-box.level-1 { 
+            border-left: 4px solid var(--info-purple);
+            animation-delay: 1.2s;
+        }
+        .org-box.level-2 { 
+            border-left: 4px solid var(--info-blue);
+            animation-delay: 2.2s;
+        }
+        .org-box.level-3 { 
+            border-left: 4px solid var(--ow-gray);
+            animation-delay: 2.2s;
+        }
+
+        .org-box .name {
             font-family: 'Montserrat', sans-serif;
-            color: var(--teal);
-        }
-        .takeaway-item span {
-            color: var(--gray);
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .arrow-nav {
-            position: fixed;
-            bottom: 40px;
-            font-size: 2rem;
-            color: var(--purple);
-            background-color: var(--card-bg);
-            border-radius: 50%;
-            padding: 0.4em 0.5em;
-            text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s;
-            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
-            z-index: 100;
-        }
-
-        .arrow-nav:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+        .org-box .title {
+            font-size: 0.9rem;
+            color: var(--ow-gray);
         }
         
-        .arrow-left {
-            left: 40px;
+        .org-box.future {
+            border-style: dashed;
+            color: var(--ow-gray);
+        }
+        .org-box.future .name {
+            color: var(--ow-gray);
         }
 
-        .arrow-right {
-            right: 40px;
+        .branch-container {
+            display: flex;
+            position: relative;
+            margin-top: 2rem;
         }
+        
+        .branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+        
+        /* Connectors */
+        .branch-container::before { /* Horizontal line */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 260px); /* Adjust based on box width */
+            height: 2px;
+            background-color: var(--border-color);
+            opacity: 0;
+            animation: fadeIn 0.5s 1.8s linear forwards;
+        }
+
+        .branch::before { /* Vertical lines from horizontal */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 2rem;
+            background-color: var(--border-color);
+            opacity: 0;
+            animation: fadeIn 0.5s 1.8s linear forwards;
+        }
+        
+        .branch .org-box {
+            margin-top: 2rem;
+        }
+        
+        .org-chart > .level-1::after { /* Main vertical line */
+            content: '';
+            position: absolute;
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 2rem;
+            background-color: var(--border-color);
+            opacity: 0;
+            animation: fadeIn 0.5s 1.5s linear forwards;
+        }
+
+
+        /* Hiring Plan Styling */
+        .hiring-philosophy {
+            opacity: 0;
+            animation: fadeIn 0.8s 2.8s ease-out forwards;
+        }
+
+        .hiring-philosophy h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--info-green);
+        }
+
+        .hiring-philosophy p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--ow-gray);
+            margin-bottom: 1.5rem;
+        }
+        .hiring-philosophy p strong {
+            color: var(--ow-white);
+        }
+
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .nav-arrow {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: var(--ow-white);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: bob 3s ease-in-out infinite, glow 3s ease-in-out infinite;
+        }
+        
+        .nav-arrow:not(.disabled):hover {
+            transform: scale(1.1);
+            background-color: rgba(211, 64, 55, 0.5);
+            box-shadow: 0 0 25px var(--ow-red), inset 0 0 10px rgba(211, 64, 55, 0.3);
+            animation-play-state: paused;
+        }
+        
+        .nav-arrow svg {
+            width: 50%;
+            height: 50%;
+            fill: currentColor;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
+        
     </style>
 </head>
 <body>
-    <div class="slide-container">
-        <div class="crm-content">
-            <h1>Tracking & Optimization: The CRM Pipeline View</h1>
-            <p class="subtitle">How we will manage our pipeline, forecast revenue, and optimize performance in real-time.</p>
-            
-            <div class="kanban-board">
-                <!-- Columns -->
-                <div class="kanban-column" style="animation-delay: 0.5s;">
-                    <div class="column-header"><div class="column-title">Target List</div><div class="column-count">1000+ Pubs</div></div>
-                    <div class="publisher-card"><div class="publisher-name">PC Gamer</div></div>
-                    <div class="publisher-card"><div class="publisher-name">Kotaku</div></div>
+
+    <div class="slide-wrapper">
+        <div class="slide-container">
+            <h1 class="slide-title">Team Structure & Hiring Plan</h1>
+
+            <div class="content-grid">
+                <div class="org-chart">
+                    <div class="org-box level-1">
+                        <div class="name">Adar Kleinman</div>
+                        <div class="title">Revenue Ops & GTM</div>
+                    </div>
+                    <div class="branch-container">
+                        <div class="branch">
+                            <div class="org-box level-2">
+                                <div class="name">Sr. Sales Manager (US)</div>
+                                <div class="title">Direct Report</div>
+                            </div>
+                        </div>
+                        <div class="branch">
+                            <div class="org-box level-3 future">
+                                <div class="name">Publisher Success</div>
+                                <div class="title">Future Direct Report</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="kanban-column" style="animation-delay: 0.6s;">
-                    <div class="column-header"><div class="column-title">Outreach</div><div class="column-count">500+ Engagements</div></div>
-                     <div class="publisher-card"><div class="publisher-name">Game Rant</div></div>
+
+                <div class="hiring-philosophy">
+                    <h2>Revenue-Justified Hiring</h2>
+                    <p>My approach is to build a lean, high-impact team. I will not hire "just in case," but will instead add new roles only when they are justified by specific revenue milestones and operational needs.</p>
+                    <p>This ensures <strong>fiscal responsibility</strong> and maintains a sharp focus on <strong>performance and outcomes</strong>. Each new hire will have a clear mandate to accelerate revenue growth, directly contributing to the success of the engine we build.</p>
                 </div>
-                <div class="kanban-column" style="animation-delay: 0.7s;">
-                    <div class="column-header"><div class="column-title">Qualified</div><div class="column-count">250+ Pubs</div></div>
-                    <div class="publisher-card"><div class="publisher-name">Fextralife</div></div>
-                    <div class="publisher-card"><div class="publisher-name">Wowhead</div></div>
-                </div>
-                <div class="kanban-column" style="animation-delay: 0.8s;">
-                    <div class="column-header"><div class="column-title">Proposal Sent</div><div class="column-count">~80 Pubs</div></div>
-                    <div class="publisher-card"><div class="publisher-name">IGN</div><div class="deal-value">~$6k/mo</div></div>
-                </div>
-                <div class="kanban-column" style="animation-delay: 0.9s;">
-                    <div class="column-header"><div class="column-title">Negotiation</div><div class="column-count"></div></div>
-                    <div class="publisher-card"><div class="publisher-name">GameSpot</div><div class="deal-value">~$4k/mo</div></div>
-                </div>
-                <div class="kanban-column" style="animation-delay: 1.0s;">
-                    <div class="column-header"><div class="column-title">Closed - Won</div><div class="column-count">~40 Deals</div></div>
-                </div>
-            </div>
-            
-            <div class="takeaways">
-                <div class="takeaway-item" style="animation-delay: 1.2s;"><strong>Forecast Revenue:</strong><span> The total value of deals in 'Proposal' and 'Negotiation' gives us a clear, data-driven forecast.</span></div>
-                <div class="takeaway-item" style="animation-delay: 1.4s;"><strong>Manage the Team:</strong><span> Aim for a healthy number of deals in each stage and identify where to focus our efforts.</span></div>
-                <div class="takeaway-item" style="animation-delay: 1.6s;"><strong>Identify Bottlenecks:</strong><span> Analyze where leads are getting stuck in the funnel, so I know exactly which stage needs fixing to keep deals moving forward.</span></div>
             </div>
         </div>
     </div>
 
-    <!-- Arrows -->
-    <a href="slide5.html" class="arrow-nav arrow-left">←</a>
-    <a href="slide7.html" class="arrow-nav arrow-right">→</a>
+    <div class="navigation">
+         <a href="slide5.html" class="nav-arrow" aria-label="Previous Slide">
+            <svg style="transform: rotate(180deg);" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <a href="slide7.html" class="nav-arrow" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </div>
+
 </body>
 </html>
