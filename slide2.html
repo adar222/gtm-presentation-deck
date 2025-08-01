@@ -1,264 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Slide 3 - 5-Month Launch Plan & Resource Ramp</title>
-    <!-- Google Fonts Import -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwolf GTM - Vision & Goals</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom Color Palette */
         :root {
-            --background: #101010;
-            --purple: #9D4EDD;
-            --teal: #48BFE3;
-            --red: #D34037;
-            --green: #2ECC71;
-            --gray: #9F9F9F;
-            --white: #FFFFFF;
-            --card-bg: #1e1e1e;
+            --ow-red: #D34037;
+            --ow-white: #FFFFFF;
+            --ow-gray: #9F9F9F;
+            --ow-dark-gray: #101010;
+            --ow-black: #000000;
+            --info-blue: #00A9E0;
+            --info-purple: #9E00FF;
+            --info-green: #00E070;
         }
 
-        html, body {
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
             height: 100%;
-            font-family: 'Lato', sans-serif;
-            background-color: var(--background);
-            color: var(--white);
-            overflow: hidden;
+            background-color: var(--ow-black);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--ow-white);
+            overflow-x: hidden;
         }
 
-        .slide-container {
+        .slide-wrapper {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             width: 100%;
+            min-height: 100%;
+            padding: 3rem 2rem;
             box-sizing: border-box;
-            padding: 2rem;
         }
 
-        .gantt-content {
+        .slide-container {
             text-align: center;
             max-width: 1100px;
             width: 100%;
-        }
-
-        .gantt-content h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--white);
-            margin: 0 0 3rem 0;
-            animation: fadeInDown 0.8s ease-out;
-        }
-        
-        .gantt-chart {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 1rem;
-        }
-        .gantt-chart th, .gantt-chart td {
-            padding: 0.75rem;
-            text-align: center;
-            border-bottom: 1px solid #333;
-        }
-        .gantt-chart th {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--gray);
-            padding-bottom: 1rem;
-        }
-        .gantt-chart .task-name {
-            text-align: left;
-            width: 35%;
-            font-weight: 700;
-            color: var(--white);
-        }
-        
-        .gantt-bar {
-            height: 12px;
-            border-radius: 6px;
-            width: 90%; /* --- FIX: Set width to be consistent --- */
-            margin: 0 auto;
             opacity: 0;
-            animation: fadeInBar 0.8s ease-out forwards;
-        }
-        
-        .bar-very-high { background-color: var(--purple); }
-        .bar-high { background-color: var(--teal); }
-        .bar-medium { background-color: var(--gray); }
-        .bar-some { background-color: #444; }
-        
-        .gantt-chart tbody tr {
-            opacity: 0;
-            animation: fadeInRow 0.5s ease-out forwards;
+            animation: fadeIn 1s 0.5s ease-out forwards;
         }
 
-        .headcount-row {
-            border-top: 2px solid var(--green);
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
-        .headcount-row .headcount-value {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: var(--green);
-        }
-        .headcount-value span {
-            display: block;
-            font-size: 0.8rem;
+        .slide-subtitle {
+            font-size: 1.25rem;
             font-weight: 400;
-            color: var(--gray);
+            color: var(--ow-gray);
+            max-width: 700px;
+            margin: 0 auto 4rem auto;
         }
 
-        .legend {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--gray);
-            animation: fadeInUp 0.8s ease-out 1.5s forwards;
-            opacity: 0;
+        .infographics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
         }
-        .legend-item {
+
+        .info-card {
+            background-color: var(--ow-dark-gray);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards, slideUp 0.8s ease-out forwards;
+        }
+
+        .info-card:nth-child(1) { animation-delay: 1s; }
+        .info-card:nth-child(2) { animation-delay: 1.2s; }
+        .info-card:nth-child(3) { animation-delay: 1.4s; }
+
+        .card-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
-        .legend-color {
-            width: 12px;
-            height: 12px;
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 50%;
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInRow {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInBar {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .card-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--ow-white);
         }
 
-        .arrow-nav {
-            position: fixed;
-            bottom: 40px;
-            font-size: 2rem;
-            color: var(--purple);
-            background-color: var(--card-bg);
-            border-radius: 50%;
-            padding: 0.4em 0.5em;
-            text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s;
-            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
-            z-index: 100;
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0;
         }
 
-        .arrow-nav:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+        .card-content .highlight {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--info-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content .description {
+            font-size: 1rem;
+            color: var(--ow-gray);
+            line-height: 1.6;
         }
         
-        .arrow-left {
-            left: 40px;
+        /* Specific Card Colors */
+        .info-card.revenue .card-icon { background-color: rgba(0, 224, 112, 0.2); }
+        .info-card.revenue .card-icon svg { fill: var(--info-green); }
+        .info-card.revenue .highlight { color: var(--info-green); }
+
+        .info-card.leadership .card-icon { background-color: rgba(0, 169, 224, 0.2); }
+        .info-card.leadership .card-icon svg { fill: var(--info-blue); }
+        .info-card.leadership .highlight { color: var(--info-blue); font-size: 1.5rem; }
+
+        .info-card.team .card-icon { background-color: rgba(158, 0, 255, 0.2); }
+        .info-card.team .card-icon svg { fill: var(--info-purple); }
+        .info-card.team .highlight { color: var(--info-purple); font-size: 1.5rem; }
+
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
         }
 
-        .arrow-right {
-            right: 40px;
+        .nav-arrow {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: var(--ow-white);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: bob 3s ease-in-out infinite, glow 3s ease-in-out infinite;
         }
+        
+        .nav-arrow.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+            animation: none;
+        }
+
+        .nav-arrow:not(.disabled):hover {
+            transform: scale(1.1);
+            background-color: rgba(211, 64, 55, 0.5);
+            box-shadow: 0 0 25px var(--ow-red), inset 0 0 10px rgba(211, 64, 55, 0.3);
+            animation-play-state: paused;
+        }
+        
+        .nav-arrow svg {
+            width: 50%;
+            height: 50%;
+            fill: currentColor;
+        }
+        
+        @media (max-width: 768px) {
+            .slide-title { font-size: 2rem; }
+            .slide-subtitle { font-size: 1rem; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2); }
+        }
+
     </style>
 </head>
 <body>
-    <div class="slide-container">
-        <div class="gantt-content">
-            <h1>5-Month Launch Plan & Resource Ramp</h1>
-            <table class="gantt-chart">
-                <thead>
-                    <tr>
-                        <th class="task-name">Core Pillar / Month</th>
-                        <th>Nov</th>
-                        <th>Dec</th>
-                        <th>Jan</th>
-                        <th>Feb</th>
-                        <th>Mar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="animation-delay: 0.5s;">
-                        <td class="task-name">Outreach & Pipeline Build</td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-high"></div></td>
-                    </tr>
-                    <tr style="animation-delay: 0.6s;">
-                        <td class="task-name">Proposals & Closing</td>
-                        <td><div class="gantt-bar bar-some"></div></td>
-                        <td><div class="gantt-bar bar-medium"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-high"></div></td>
-                    </tr>
-                    <tr style="animation-delay: 0.7s;">
-                        <td class="task-name">Onboarding (Rolling Batches)</td>
-                        <td></td>
-                        <td></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                    </tr>
-                    <tr style="animation-delay: 0.8s;">
-                        <td class="task-name">Go Live & Revenue Ramp</td>
-                        <td></td>
-                        <td></td>
-                        <td><div class="gantt-bar bar-medium"></div></td>
-                        <td><div class="gantt-bar bar-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                    </tr>
-                    <tr style="animation-delay: 0.9s;">
-                        <td class="task-name">Support & Optimization</td>
-                        <td><div class="gantt-bar bar-some"></div></td>
-                        <td><div class="gantt-bar bar-some"></div></td>
-                        <td><div class="gantt-bar bar-high"></div></td>
-                        <td><div class="gantt-bar bar-high"></div></td>
-                        <td><div class="gantt-bar bar-very-high"></div></td>
-                    </tr>
-                     <tr style="animation-delay: 1.0s;" class="headcount-row">
-                        <td class="task-name">GTM Team Size</td>
-                        <td class="headcount-value">1 <span>(You)</span></td>
-                        <td class="headcount-value">1 <span>(You)</span></td>
-                        <td class="headcount-value">2 <span>(+1 BizDev)</span></td>
-                        <td class="headcount-value">3 <span>(+1 Pub Success)</span></td>
-                        <td class="headcount-value">3</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="legend">
-                <div class="legend-item"><div class="legend-color" style="background-color: var(--purple);"></div>Very High</div>
-                <div class="legend-item"><div class="legend-color" style="background-color: var(--teal);"></div>High</div>
-                <div class="legend-item"><div class="legend-color" style="background-color: var(--gray);"></div>Medium</div>
-                <div class="legend-item"><div class="legend-color" style="background-color: #444;"></div>Some Activity</div>
+
+    <div class="slide-wrapper">
+        <div class="slide-container">
+            <h1 class="slide-title">Execution Vision & Revenue Goal</h1>
+            <h2 class="slide-subtitle">The goal is to launch and rapidly scale a predictable, high-yield revenue machine.</h2>
+
+            <div class="infographics-grid">
+                <!-- Card 1: Revenue Goal -->
+                <div class="info-card revenue">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24"><path d="M11.8,10.9C9.53,10.31 9,9.7 9,8.85C9,7.76 9.91,7 11.7,7C13.57,7 14.44,7.85 14.5,9.1H16.71C16.64,7.38 15.68,5.7 13.79,5.19V3H10.21V5.16C8.27,5.58 6.5,6.84 6.5,8.77C6.5,11.08 8.41,12.23 11.2,12.88C13.7,13.44 14.5,14.28 14.5,15.26C14.5,15.95 14,17 11.8,17C9.94,17 9.13,16.08 9.02,14.9H6.8C6.92,17.09 8.56,18.32 10.48,18.73V21H14V18.85C16.06,18.39 17.5,17.12 17.5,15.1C17.5,12.76 15.53,11.54 11.8,10.9Z"/></svg>
+                        </div>
+                        <h3 class="card-title">Revenue Target</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="highlight">$1,000,000</div>
+                        <p class="description">Target for Q1 revenue, followed by an aggressive scaling strategy to maximize market opportunity.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Leadership -->
+                <div class="info-card leadership">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24"><path d="M5,16L3,5L8.5,12L12,3L15.5,12L21,5L19,16H5M19,18H5L5.81,21H18.19L19,18Z"/></svg>
+                        </div>
+                        <h3 class="card-title">Leadership</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="highlight">Lead from the Front</div>
+                        <p class="description">Directly leading the GTM strategy, operations, and execution from day one to ensure alignment and velocity.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Team Footprint -->
+                <div class="info-card team">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24"><path d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11.5A3.5,3.5 0 0,0 11.5,8A3.5,3.5 0 0,0 8,4.5A3.5,3.5 0 0,0 4.5,8A3.5,3.5 0 0,0 8,11.5M16,11.5A3.5,3.5 0 0,0 19.5,8A3.5,3.5 0 0,0 16,4.5A3.5,3.5 0 0,0 12.5,8A3.5,3.5 0 0,0 16,11.5Z"/></svg>
+                        </div>
+                        <h3 class="card-title">Initial Team Footprint</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="highlight">Lean & Agile</div>
+                        <p class="description">Starting with a core, high-impact team focused on key deliverables, ready to expand as we hit scaling milestones.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Arrows -->
-    <a href="index.html" class="arrow-nav arrow-left">←</a>
-    <a href="slide3.html" class="arrow-nav arrow-right">→</a>
+    <div class="navigation">
+         <a href="index.html" class="nav-arrow" aria-label="Previous Slide">
+            <svg style="transform: rotate(180deg);" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <a href="slide3.html" class="nav-arrow" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </div>
+
 </body>
 </html>
