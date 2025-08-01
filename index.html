@@ -1,146 +1,270 @@
+Of course. Acting as your designer, I've crafted the first slide, `index.html`.
+
+This title slide is designed to be impactful and set a high-tech, premium tone for the entire presentation. It features a dynamic, animated background of flowing particles, representing the "engine" concept. The text animates into view sequentially to create a focused, professional reveal.
+
+Here is the complete code. Simply copy it, save it as `index.html`, and open it in your browser or deploy it to Vercel.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Slide 1 - Executive Summary</title>
-    <!-- Google Fonts Import -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwolf GTM - Title</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400&display=swap" rel="stylesheet">
     <style>
-        /* Custom Color Palette */
         :root {
-            --background: #101010;
-            --purple: #9D4EDD;
-            --teal: #48BFE3;
-            --red: #D34037;
-            --green: #2ECC71;
-            --gray: #9F9F9F;
-            --white: #FFFFFF;
-            --card-bg: #1e1e1e;
+            --ow-red: #D34037;
+            --ow-white: #FFFFFF;
+            --ow-gray: #9F9F9F;
+            --ow-dark-gray: #101010;
+            --ow-black: #000000;
+            --info-blue: #00A9E0;
+            --info-purple: #9E00FF;
+            --info-green: #00E070;
         }
 
-        html, body {
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
             height: 100%;
-            font-family: 'Lato', sans-serif;
-            background-color: var(--background);
-            color: var(--white);
+            background-color: var(--ow-black);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--ow-white);
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
 
         .slide-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        .title {
+            font-size: 4.5vw;
+            font-weight: 700;
+            margin: 0;
+            animation: fadeIn 1s ease-out forwards, slideUp 1s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .title span {
+            color: var(--ow-red);
+            text-shadow: 0 0 10px var(--ow-red);
+        }
+
+        .subtitle {
+            font-size: 2vw;
+            font-weight: 400;
+            color: var(--ow-gray);
+            margin: 1.5rem 0;
+            animation: fadeIn 1s 1s ease-out forwards, slideUp 1s 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .author {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.5vw;
+            font-weight: 400;
+            color: var(--ow-white);
+            margin-top: 3rem;
+            animation: fadeIn 1s 2s ease-out forwards, slideUp 1s 2s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 8vw; }
+            .subtitle { font-size: 4vw; }
+            .author { font-size: 3vw; }
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 10;
+            animation: fadeIn 1s 3s ease-out forwards;
+            opacity: 0;
+        }
+
+        .nav-arrow {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            width: 100%;
-            box-sizing: border-box;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .summary-content {
-            opacity: 0;
-            animation: fadeIn 1s ease-out forwards;
-        }
-
-        .summary-content h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--white);
-            margin: 0;
-            animation: fadeInDown 0.8s ease-out 0.5s forwards;
-            opacity: 0;
-        }
-        
-        .goal-value {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 6rem;
-            color: var(--green);
-            margin: 2rem 0;
-            text-shadow: 0 0 25px rgba(46, 204, 113, 0.4);
-            animation: zoomIn 0.8s ease-out 1s forwards;
-            opacity: 0;
-        }
-
-        .goal-description {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--white);
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease-out 1.5s forwards;
-            opacity: 0;
-        }
-        
-        .focus-text {
-            font-family: 'Lato', sans-serif;
-            font-size: 1.2rem;
-            color: var(--gray);
-            font-style: italic;
-            max-width: 700px;
-            margin: 0 auto;
-            animation: fadeInUp 0.8s ease-out 2s forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .arrow-nav {
-            position: fixed;
-            bottom: 40px;
-            font-size: 2rem;
-            color: var(--purple);
-            background-color: var(--card-bg);
-            border-radius: 50%;
-            padding: 0.4em 0.5em;
             text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s;
-            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
-            z-index: 100;
+            color: var(--ow-white);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: bob 3s ease-in-out infinite, glow 3s ease-in-out infinite;
         }
 
-        .arrow-nav:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+        .nav-arrow:hover {
+            transform: scale(1.1);
+            background-color: rgba(211, 64, 55, 0.5);
+            box-shadow: 0 0 25px var(--ow-red), inset 0 0 10px rgba(211, 64, 55, 0.3);
+            animation-play-state: paused;
+        }
+        
+        .nav-arrow svg {
+            width: 50%;
+            height: 50%;
+            fill: currentColor;
         }
 
-        .arrow-right {
-            right: 40px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2); }
+        }
+
     </style>
 </head>
 <body>
+
+    <canvas id="particle-canvas"></canvas>
+
     <div class="slide-container">
-        <div class="summary-content">
-            <h1>The Goal:</h1>
-            <div class="goal-value">$1M</div>
-            <div class="goal-description">Cumulative Revenue by March 2026</div>
-            <p class="focus-text">
-                Focus: Aggressive outreach, multi-channel lead gen, and rapid onboarding to achieve our Q1 revenue goal.
-            </p>
-        </div>
+        <h1 class="title">Building Overwolf’s Programmatic <span>Revenue Engine</span></h1>
+        <h2 class="subtitle">Execution Plan, Team Structure & Operational Command</h2>
+        <p class="author">Adar Kleinman</p>
     </div>
 
-    <!-- Arrow to next slide -->
-    <a href="slide2.html" class="arrow-nav arrow-right">→</a>
+    <div class="navigation">
+        <a href="slide2.html" class="nav-arrow" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray;
+
+        const colors = ['#D34037', '#00A9E0', '#9E00FF', '#00E070', '#9F9F9F'];
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y > canvas.height || this.y < 0) {
+                    this.directionY = -this.directionY;
+                }
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * .4) - .2;
+                let directionY = (Math.random() * .4) - .2;
+                let color = colors[Math.floor(Math.random() * colors.length)];
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+                    + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                        opacityValue = 1 - (distance / 20000);
+                        let dx = particlesArray[a].x - particlesArray[b].x;
+                        let dy = particlesArray[a].y - particlesArray[b].y;
+                        let color = particlesArray[a].color === particlesArray[b].color ? particlesArray[a].color : 'rgba(159, 159, 159, ' + opacityValue + ')';
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            init();
+        });
+
+        init();
+        animate();
+    </script>
 </body>
 </html>
+```
