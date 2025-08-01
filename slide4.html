@@ -1,223 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Slide 4 - The Publisher Success Journey</title>
-    <!-- Google Fonts Import -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwolf GTM - Launch Plan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom Color Palette */
         :root {
-            --background: #101010;
-            --purple: #9D4EDD;
-            --teal: #48BFE3;
-            --red: #D34037;
-            --green: #2ECC71;
-            --gray: #9F9F9F;
-            --white: #FFFFFF;
-            --card-bg: #1e1e1e;
+            --ow-red: #D34037;
+            --ow-white: #FFFFFF;
+            --ow-gray: #9F9F9F;
+            --ow-dark-gray: #1E1E1E;
+            --ow-black: #101010;
+            --info-blue: #48BFE3;
+            --info-purple: #9D4EDD;
+            --info-green: #2ECC71;
+            --bar-medium: #6c6c6c;
+            --bar-some: #4a4a4a;
+            --border-color: #333333;
         }
 
-        html, body {
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
             height: 100%;
+            background-color: var(--ow-black);
             font-family: 'Lato', sans-serif;
-            background-color: var(--background);
-            color: var(--white);
-            overflow: hidden;
+            color: var(--ow-white);
+            overflow-x: hidden;
         }
 
-        .slide-container {
+        .slide-wrapper {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             width: 100%;
+            min-height: 100vh;
+            padding: 3rem 2rem;
             box-sizing: border-box;
-            padding: 2rem;
         }
 
-        .journey-content {
+        .slide-container {
             text-align: center;
-            max-width: 1400px;
+            max-width: 1200px;
             width: 100%;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s ease-out forwards;
         }
 
-        .journey-content h1 {
+        .slide-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--white);
-            margin: 0 0 1rem 0;
-            animation: fadeInDown 0.8s ease-out;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
         }
         
-        .journey-content .subtitle {
-            font-family: 'Lato', sans-serif;
+        .gantt-chart-container {
+            background-color: var(--ow-dark-gray);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .gantt-chart {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .gantt-chart th, .gantt-chart td {
+            padding: 1rem 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .gantt-chart th {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--ow-gray);
+            padding-bottom: 1rem;
+        }
+        
+        .gantt-chart .task-name {
+            text-align: left;
+            font-weight: 700;
+            width: 30%;
+        }
+
+        .gantt-chart tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .gantt-row {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .gantt-row:nth-of-type(1) { animation-delay: 1.2s; }
+        .gantt-row:nth-of-type(2) { animation-delay: 1.4s; }
+        .gantt-row:nth-of-type(3) { animation-delay: 1.6s; }
+        .gantt-row:nth-of-type(4) { animation-delay: 1.8s; }
+        .gantt-row:nth-of-type(5) { animation-delay: 2.0s; }
+        .gantt-row:nth-of-type(6) { animation-delay: 2.2s; }
+
+
+        .gantt-bar {
+            height: 12px;
+            border-radius: 6px;
+            width: 80%;
+            margin: 0 auto;
+        }
+        
+        .bar-purple { background-color: var(--info-purple); }
+        .bar-blue { background-color: var(--info-blue); }
+        .bar-medium { background-color: var(--bar-medium); }
+        .bar-some { background-color: var(--bar-some); }
+
+        .team-row td {
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            border-bottom: none;
+        }
+
+        .team-cell {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
             font-size: 1.2rem;
-            color: var(--gray);
-            margin-bottom: 4rem;
-            animation: fadeInDown 0.8s ease-out 0.2s;
-            animation-fill-mode: backwards;
+            color: var(--info-green);
         }
         
-        .journey-map {
+        .team-size-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--ow-gray);
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            opacity: 0;
+            animation: fadeIn 1s 2.8s ease-out forwards;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--ow-gray);
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            position: relative;
-            width: 100%;
-        }
-        
-        .journey-path {
-            position: absolute;
-            top: 40px; /* Aligns with the center of the icons */
-            left: 12%;
-            right: 12%;
-            height: 4px;
-            background-color: #333;
-            z-index: 1;
-        }
-        .journey-path-progress {
-            height: 100%;
-            width: 0;
-            background-color: var(--teal);
-            animation: drawPath 2s ease-out 0.8s forwards;
+            z-index: 10;
         }
 
-        @keyframes drawPath {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        .journey-stage {
-            width: 22%;
-            text-align: center;
-            opacity: 0;
-            animation: zoomIn 0.7s ease-out forwards;
-            z-index: 2;
-        }
-        
-        .stage-1 { animation-delay: 0.5s; }
-        .stage-2 { animation-delay: 1.0s; }
-        .stage-3 { animation-delay: 1.5s; }
-        .stage-4 { animation-delay: 2.0s; }
-
-        .stage-icon {
-            width: 80px;
-            height: 80px;
-            background-color: var(--card-bg);
-            border: 2px solid #333;
+        .nav-arrow {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 1rem auto;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        .stage-icon svg {
-            width: 40px;
-            height: 40px;
-            color: var(--teal);
-        }
-        .journey-stage:hover .stage-icon {
-            transform: scale(1.1);
-            border-color: var(--teal);
-        }
-
-        .stage-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-        .stage-description {
-            font-size: 0.9rem;
-            color: var(--gray);
-            line-height: 1.5;
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .arrow-nav {
-            position: fixed;
-            bottom: 40px;
-            font-size: 2rem;
-            color: var(--purple);
-            background-color: var(--card-bg);
-            border-radius: 50%;
-            padding: 0.4em 0.5em;
             text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s;
-            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
-            z-index: 100;
-        }
-
-        .arrow-nav:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+            color: var(--ow-white);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: bob 3s ease-in-out infinite, glow 3s ease-in-out infinite;
         }
         
-        .arrow-left {
-            left: 40px;
+        .nav-arrow:not(.disabled):hover {
+            transform: scale(1.1);
+            background-color: rgba(211, 64, 55, 0.5);
+            box-shadow: 0 0 25px var(--ow-red), inset 0 0 10px rgba(211, 64, 55, 0.3);
+            animation-play-state: paused;
+        }
+        
+        .nav-arrow svg {
+            width: 50%;
+            height: 50%;
+            fill: currentColor;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
+        
+        @media (max-width: 768px) {
+            .slide-title { font-size: 2rem; }
+            .gantt-chart-container { padding: 1.5rem; }
         }
 
-        .arrow-right {
-            right: 40px;
-        }
     </style>
 </head>
 <body>
-    <div class="slide-container">
-        <div class="journey-content">
-            <h1>The Publisher Success Journey</h1>
-            <p class="subtitle">Our step-by-step process for ensuring every new partner achieves immediate and long-term value.</p>
-            
-            <div class="journey-map">
-                <div class="journey-path"><div class="journey-path-progress"></div></div>
-                <!-- Stage 1 -->
-                <div class="journey-stage stage-1">
-                    <div class="stage-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 2.18a14.98 14.98 0 00-5.84 7.38m5.84 2.58l-2.16-2.16m2.16 2.16l2.16 2.16m-2.16-2.16l2.16-2.16m-2.16 2.16l-2.16 2.16" /></svg></div>
-                    <div class="stage-title">Kickoff & Integration</div>
-                    <div class="stage-description">(Week 1) Dedicated support to get partners live within 48-72 hours.</div>
-                </div>
-                <!-- Stage 2 -->
-                <div class="journey-stage stage-2">
-                    <div class="stage-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" /></svg></div>
-                    <div class="stage-title">Performance Baseline</div>
-                    <div class="stage-description">(Weeks 1-4) Monitor initial performance to validate a clear revenue lift.</div>
-                </div>
-                <!-- Stage 3 -->
-                <div class="journey-stage stage-3">
-                    <div class="stage-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg></div>
-                    <div class="stage-title">First Business Review</div>
-                    <div class="stage-description">(Week 5) Present a 30-day performance report and build the initial case study.</div>
-                </div>
-                <!-- Stage 4 -->
-                <div class="journey-stage stage-4">
-                    <div class="stage-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.667 0l3.181-3.183m-4.991-2.691V5.25a3.375 3.375 0 00-3.375-3.375H8.25a3.375 3.375 0 00-3.375 3.375v3.192m16.5 0a3.375 3.375 0 00-3.375-3.375H8.25a3.375 3.375 0 00-3.375 3.375v3.192" /></svg></div>
-                    <div class="stage-title">Ongoing Optimization</div>
-                    <div class="stage-description">(Quarterly) Proactive yield optimization and strategic insight sharing.</div>
+
+    <div class="slide-wrapper">
+        <div class="slide-container">
+            <h1 class="slide-title">5-Month Launch Plan & Resource Ramp</h1>
+
+            <div class="gantt-chart-container">
+                <table class="gantt-chart">
+                    <thead>
+                        <tr>
+                            <th class="task-name">Core Pillar / Month</th>
+                            <th>Aug</th>
+                            <th>Sep</th>
+                            <th>Oct</th>
+                            <th>Nov</th>
+                            <th>Dec</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="gantt-row">
+                            <td class="task-name">Outreach & Pipeline Build</td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                        </tr>
+                        <tr class="gantt-row">
+                            <td class="task-name">Proposals & Closing</td>
+                            <td><div class="gantt-bar bar-some"></div></td>
+                            <td><div class="gantt-bar bar-medium"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                        </tr>
+                        <tr class="gantt-row">
+                            <td class="task-name">Onboarding (Rolling Batches)</td>
+                            <td></td>
+                            <td><div class="gantt-bar bar-some"></div></td>
+                            <td><div class="gantt-bar bar-medium"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                        </tr>
+                        <tr class="gantt-row">
+                            <td class="task-name">Go Live & Revenue Ramp</td>
+                            <td></td>
+                            <td></td>
+                            <td><div class="gantt-bar bar-medium"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                        </tr>
+                        <tr class="gantt-row">
+                            <td class="task-name">Support & Optimization</td>
+                            <td></td>
+                            <td><div class="gantt-bar bar-some"></div></td>
+                            <td><div class="gantt-bar bar-medium"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                        </tr>
+                        <tr class="gantt-row team-row">
+                            <td class="task-name">GTM Team Size</td>
+                            <td class="team-cell">1 <span class="team-size-label">(You)</span></td>
+                            <td class="team-cell">1 <span class="team-size-label">(You)</span></td>
+                            <td class="team-cell">2 <span class="team-size-label">(+1 BizDev)</span></td>
+                            <td class="team-cell">3 <span class="team-size-label">(+1 Pub Success)</span></td>
+                            <td class="team-cell">3</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-color" style="background-color: var(--info-purple);"></div> Very High</div>
+                    <div class="legend-item"><div class="legend-color" style="background-color: var(--info-blue);"></div> High</div>
+                    <div class="legend-item"><div class="legend-color" style="background-color: var(--bar-medium);"></div> Medium</div>
+                    <div class="legend-item"><div class="legend-color" style="background-color: var(--bar-some);"></div> Some Activity</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Arrows -->
-    <a href="slide3.html" class="arrow-nav arrow-left">←</a>
-    <a href="slide5.html" class="arrow-nav arrow-right">→</a>
+    <div class="navigation">
+         <a href="slide3.html" class="nav-arrow" aria-label="Previous Slide">
+            <svg style="transform: rotate(180deg);" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <a href="slide5.html" class="nav-arrow" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </div>
+
 </body>
 </html>
