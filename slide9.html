@@ -28,7 +28,7 @@
             background-color: var(--ow-black);
             font-family: 'Lato', sans-serif;
             color: var(--ow-white);
-            overflow-x: hidden;
+            overflow: hidden; /* Prevents scrolling */
         }
 
         .slide-wrapper {
@@ -37,8 +37,8 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            min-height: 100vh;
-            padding: 3rem;
+            height: 100vh; /* Changed to fixed height */
+            padding: 2rem;
             box-sizing: border-box;
         }
 
@@ -54,13 +54,13 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem; /* Reduced margin */
         }
         
         .kpi-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 2.5rem; /* Reduced gap */
             text-align: left;
         }
 
@@ -72,9 +72,9 @@
 
         .kpi-category h2 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem; /* Slightly smaller */
             font-weight: 700;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem; /* Reduced margin */
             opacity: 0;
             animation: slideUpFadeIn 0.7s ease-out forwards;
         }
@@ -90,10 +90,10 @@
 
         .kpi-card {
             background-color: var(--ow-dark-gray);
-            border-radius: 16px;
-            padding: 1.5rem;
+            border-radius: 12px;
+            padding: 1.5rem; /* Reduced padding */
             border: 1px solid var(--border-color);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem; /* Reduced margin */
             opacity: 0;
             transform: translateY(20px);
             animation: slideUpFadeIn 0.7s ease-out forwards;
@@ -112,7 +112,7 @@
             display: flex;
             align-items: flex-start;
             gap: 1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem; /* Reduced margin */
         }
 
         .card-icon {
@@ -131,16 +131,16 @@
 
         .card-value {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;
+            font-size: 2rem; /* Reduced size */
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: var(--ow-white);
         }
 
         .card-description {
-            font-size: 0.9rem;
+            font-size: 0.85rem; /* Reduced size */
             color: var(--ow-gray);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .navigation {
