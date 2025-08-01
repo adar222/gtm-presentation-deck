@@ -1,188 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Slide 5 - Risks & Mitigation</title>
-    <!-- Google Fonts Import -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwolf GTM - Weekly Gantt</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom Color Palette */
         :root {
-            --background: #101010;
-            --purple: #9D4EDD;
-            --teal: #48BFE3;
-            --red: #D34037;
-            --green: #2ECC71;
-            --gray: #9F9F9F;
-            --white: #FFFFFF;
-            --card-bg: #1e1e1e;
+            --ow-red: #D34037;
+            --ow-white: #FFFFFF;
+            --ow-gray: #9F9F9F;
+            --ow-dark-gray: #1E1E1E;
+            --ow-black: #101010;
+            --info-blue: #48BFE3;
+            --info-purple: #9D4EDD;
+            --info-green: #2ECC71;
+            --bar-medium: #6c6c6c;
+            --bar-some: #4a4a4a;
+            --border-color: #333333;
         }
 
-        html, body {
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
             height: 100%;
+            background-color: var(--ow-black);
             font-family: 'Lato', sans-serif;
-            background-color: var(--background);
-            color: var(--white);
-            overflow: hidden;
+            color: var(--ow-white);
         }
 
-        .slide-container {
+        .slide-wrapper {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             width: 100%;
+            min-height: 100vh;
+            padding: 3rem;
             box-sizing: border-box;
-            padding: 2rem;
         }
 
-        .risk-content {
+        .slide-container {
             text-align: center;
-            max-width: 1100px;
+            max-width: 1400px;
             width: 100%;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s ease-out forwards;
         }
 
-        .risk-content h1 {
+        .slide-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--white);
-            margin: 0 0 3rem 0;
-            animation: fadeInDown 0.8s ease-out;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
         }
         
-        .risk-grid {
-            display: flex;
-            gap: 3rem;
+        .gantt-chart-container {
+            background-color: var(--ow-dark-gray);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            overflow-x: auto; /* Allows horizontal scrolling on smaller screens */
+        }
+
+        .gantt-chart {
             width: 100%;
+            min-width: 1200px; /* Ensures layout is maintained */
+            border-collapse: collapse;
+            text-align: center;
         }
 
-        .risk-column, .mitigation-column {
-            flex: 1;
+        .gantt-chart th, .gantt-chart td {
+            padding: 1rem 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .gantt-chart th {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--ow-gray);
+            padding-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .gantt-chart .task-name {
             text-align: left;
-            background-color: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            opacity: 0;
-            animation: zoomIn 0.7s ease-out forwards;
+            font-weight: 700;
+            width: 20%;
         }
-        .risk-column { animation-delay: 0.5s; border-left: 4px solid var(--red); }
-        .mitigation-column { animation-delay: 0.8s; border-left: 4px solid var(--green); }
 
-        .column-header {
+        .gantt-chart tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .gantt-row {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .gantt-row:nth-of-type(1) { animation-delay: 1.2s; }
+        .gantt-row:nth-of-type(2) { animation-delay: 1.4s; }
+        .gantt-row:nth-of-type(3) { animation-delay: 1.6s; }
+        .gantt-row:nth-of-type(4) { animation-delay: 1.8s; }
+        .gantt-row:nth-of-type(5) { animation-delay: 2.0s; }
+        .gantt-row:nth-of-type(6) { animation-delay: 2.2s; }
+        .gantt-row:nth-of-type(7) { animation-delay: 2.4s; }
+
+        .gantt-bar {
+            height: 12px;
+            border-radius: 6px;
+            width: 80%;
+            margin: 0 auto;
+        }
+        
+        .bar-purple { background-color: var(--info-purple); }
+        .bar-blue { background-color: var(--info-blue); }
+        .bar-medium { background-color: var(--bar-medium); }
+        .bar-some { background-color: var(--bar-some); }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            opacity: 0;
+            animation: fadeIn 1s 2.8s ease-out forwards;
+        }
+        
+        .legend-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .column-icon {
-            width: 32px;
-            height: 32px;
-        }
-        .risk-column .column-icon { color: var(--red); }
-        .mitigation-column .column-icon { color: var(--green); }
-
-        .column-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .risk-list {
-            list-style: none;
-            padding: 0;
-        }
-        .risk-list li {
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        .risk-list strong {
-            display: block;
-            font-size: 1.1rem;
-            color: var(--white);
-        }
-        .risk-list span {
-            color: var(--gray);
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .arrow-nav {
-            position: fixed;
-            bottom: 40px;
-            font-size: 2rem;
-            color: var(--purple);
-            background-color: var(--card-bg);
-            border-radius: 50%;
-            padding: 0.4em 0.5em;
-            text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s;
-            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
-            z-index: 100;
-        }
-
-        .arrow-nav:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--ow-gray);
         }
         
-        .arrow-left {
-            left: 40px;
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
         }
 
-        .arrow-right {
-            right: 40px;
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
         }
+
+        .nav-arrow {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: var(--ow-white);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: bob 3s ease-in-out infinite, glow 3s ease-in-out infinite;
+        }
+        
+        .nav-arrow:not(.disabled):hover {
+            transform: scale(1.1);
+            background-color: rgba(211, 64, 55, 0.5);
+            box-shadow: 0 0 25px var(--ow-red), inset 0 0 10px rgba(211, 64, 55, 0.3);
+            animation-play-state: paused;
+        }
+        
+        .nav-arrow svg {
+            width: 50%;
+            height: 50%;
+            fill: currentColor;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
+        
     </style>
 </head>
 <body>
-    <div class="slide-container">
-        <div class="risk-content">
-            <h1>Risks & Mitigation</h1>
-            <div class="risk-grid">
-                <!-- Risks Column -->
-                <div class="risk-column">
-                    <div class="column-header">
-                        <div class="column-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" /></svg></div>
-                        <h2 class="column-title">Potential Risks</h2>
-                    </div>
-                    <ul class="risk-list">
-                        <li><strong>Lower Funnel Conversion</strong><span>Actual close rates are lower than the forecasted 50%, requiring more top-of-funnel activity.</span></li>
-                        <li><strong>Technical Delays</strong><span>Publisher-side technical hurdles slow down the integration and onboarding process.</span></li>
-                        <li><strong>CPM Seasonality</strong><span>Q1 is traditionally a softer quarter for ad spend, which could impact initial eCPM performance.</span></li>
-                    </ul>
-                </div>
-                <!-- Mitigation Column -->
-                <div class="mitigation-column">
-                    <div class="column-header">
-                        <div class="column-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" /></svg></div>
-                        <h2 class="column-title">Mitigation Plan</h2>
-                    </div>
-                     <ul class="risk-list">
-                        <li><strong>Weekly Funnel Checks</strong><span>Monitor conversion rates in real-time and quickly adjust outreach volume or messaging as needed.</span></li>
-                        <li><strong>Dedicated Onboarding</strong><span>Our Publisher Success Manager will provide hands-on support to resolve issues and accelerate time-to-revenue.</span></li>
-                        <li><strong>Leverage Unique Demand</strong><span>Overwolf's exclusive, gamer-focused demand is less susceptible to broad market seasonality and performs consistently.</span></li>
-                    </ul>
+
+    <div class="slide-wrapper">
+        <div class="slide-container">
+            <h1 class="slide-title">Weekly Gantt - Q1 2026 Execution</h1>
+
+            <div class="gantt-chart-container">
+                <table class="gantt-chart">
+                    <thead>
+                        <tr>
+                            <th class="task-name">Task/Week</th>
+                            <th>Jan 1-7</th>
+                            <th>Jan 8-14</th>
+                            <th>Jan 15-21</th>
+                            <th>Jan 22-28</th>
+                            <th>Feb 1-7</th>
+                            <th>Feb 8-14</th>
+                            <th>Feb 15-21</th>
+                            <th>Feb 22-28</th>
+                            <th>Mar 1-7</th>
+                            <th>Mar 8-14</th>
+                            <th>Mar 15-21</th>
+                            <th>Mar 22-31</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="gantt-row">
+                            <td class="task-name">Outreach</td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td><div class="gantt-bar bar-medium"></div></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="gantt-row">
+                            <td class="task-name">Qualification & Proposals</td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="gantt-row">
+                            <td class="task-name">Onboard Batch 1 (10)</td>
+                            <td></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="gantt-row">
+                            <td class="task-name">Onboard Batch 2 (15)</td>
+                            <td></td>
+                            <td></td>
+                            <td><div class="gantt-bar bar-medium"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-medium"></div></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="gantt-row">
+                            <td class="task-name">Onboard Batch 3 (15)</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><div class="gantt-bar bar-some"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="gantt-row">
+                            <td class="task-name">Go Live & Optimize Rev</td>
+                            <td></td>
+                            <td></td>
+                            <td><div class="gantt-bar bar-medium"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                        </tr>
+                         <tr class="gantt-row">
+                            <td class="task-name">Support & Monitoring</td>
+                            <td></td>
+                            <td></td>
+                            <td><div class="gantt-bar bar-medium"></div></td>
+                            <td><div class="gantt-bar bar-blue"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                            <td><div class="gantt-bar bar-purple"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-color" style="background-color: var(--info-purple);"></div> Very High</div>
+                    <div class="legend-item"><div class="legend-color" style="background-color: var(--info-blue);"></div> High</div>
+                    <div class="legend-item"><div class="legend-color" style="background-color: var(--bar-medium);"></div> Medium</div>
+                    <div class="legend-item"><div class="legend-color" style="background-color: var(--bar-some);"></div> Some Activity</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Arrows -->
-    <a href="slide4.html" class="arrow-nav arrow-left">←</a>
-    <a href="slide6.html" class="arrow-nav arrow-right">→</a>
+    <div class="navigation">
+         <a href="slide4.html" class="nav-arrow" aria-label="Previous Slide">
+            <svg style="transform: rotate(180deg);" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <a href="slide6.html" class="nav-arrow" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </div>
+
 </body>
 </html>
