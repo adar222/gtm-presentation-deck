@@ -59,7 +59,7 @@
         
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1.2fr; /* Give a bit more space to principles */
             gap: 3rem;
             text-align: left;
             align-items: center;
@@ -184,27 +184,43 @@
 
 
         /* Hiring Plan Styling */
-        .hiring-philosophy {
+        .hiring-principles {
             opacity: 0;
             animation: fadeIn 0.8s 2.8s ease-out forwards;
         }
 
-        .hiring-philosophy h2 {
+        .hiring-principles h2 {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             color: var(--info-green);
         }
-
-        .hiring-philosophy p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: var(--ow-gray);
+        
+        .principle {
             margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: slideUpFadeIn 0.7s ease-out forwards;
         }
-        .hiring-philosophy p strong {
-            color: var(--ow-white);
+
+        .principle:nth-of-type(1) { animation-delay: 3.0s; }
+        .principle:nth-of-type(2) { animation-delay: 3.2s; }
+        .principle:nth-of-type(3) { animation-delay: 3.4s; }
+
+
+        .principle h3 {
+            margin: 0 0 0.5rem 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .principle p {
+            margin: 0;
+            color: var(--ow-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
 
@@ -253,6 +269,10 @@
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
+        @keyframes slideUpFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
         
@@ -286,10 +306,20 @@
                     </div>
                 </div>
 
-                <div class="hiring-philosophy">
-                    <h2>Revenue-Justified Hiring</h2>
-                    <p>My approach is to build a lean, high-impact team. I will not hire "just in case," but will instead add new roles only when they are justified by specific revenue milestones and operational needs.</p>
-                    <p>This ensures <strong>fiscal responsibility</strong> and maintains a sharp focus on <strong>performance and outcomes</strong>. Each new hire will have a clear mandate to accelerate revenue growth, directly contributing to the success of the engine we build.</p>
+                <div class="hiring-principles">
+                    <h2>My Hiring Principles</h2>
+                    <div class="principle">
+                        <h3>1. Revenue Triggers Growth</h3>
+                        <p>We don't hire "just in case." New roles are unlocked only when we hit pre-defined revenue milestones.</p>
+                    </div>
+                     <div class="principle">
+                        <h3>2. Every Role Drives Revenue</h3>
+                        <p>Each new team member will have a clear mandate to directly accelerate growth and improve our core KPIs.</p>
+                    </div>
+                     <div class="principle">
+                        <h3>3. Lean & High-Impact</h3>
+                        <p>We will maintain a small, elite team where every individual is a top performer, ensuring maximum efficiency and fiscal responsibility.</p>
+                    </div>
                 </div>
             </div>
         </div>
