@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Overwolf GTM - Core Pillars</title>
+    <title>Overwolf GTM - The Revenue Engine</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
@@ -14,9 +14,9 @@
             --ow-gray: #9F9F9F;
             --ow-dark-gray: #1E1E1E;
             --ow-black: #101010;
-            --info-blue: #48BFE3;
-            --info-purple: #9D4EDD;
-            --info-green: #2ECC71;
+            --info-blue: #00A9E0;
+            --info-purple: #9E00FF;
+            --info-green: #00E070;
             --border-color: #333333;
         }
 
@@ -28,7 +28,7 @@
             background-color: var(--ow-black);
             font-family: 'Lato', sans-serif;
             color: var(--ow-white);
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         .slide-wrapper {
@@ -37,8 +37,8 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            min-height: 100vh;
-            padding: 3rem;
+            height: 100vh;
+            padding: 2rem;
             box-sizing: border-box;
         }
 
@@ -57,46 +57,94 @@
             margin-bottom: 4rem;
         }
         
-        /* Pillars */
-        .pillars-grid {
+        .content-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: 1.5fr 1fr; /* More space for pillars */
+            gap: 4rem;
+            align-items: center;
             text-align: left;
+        }
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
         }
 
         .pillar {
             display: flex;
             align-items: flex-start;
-            gap: 1.5rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
             animation: slideUpFadeIn 0.7s ease-out forwards;
+        }
+        
+        .pillar-icon {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            fill: var(--info-blue);
+            margin-top: 4px;
         }
 
         .pillar:nth-of-type(1) { animation-delay: 1.2s; }
-        .pillar:nth-of-type(2) { animation-delay: 1.4s; }
-        .pillar:nth-of-type(3) { animation-delay: 1.6s; }
-        .pillar:nth-of-type(4) { animation-delay: 1.8s; }
-        .pillar:nth-of-type(5) { animation-delay: 2.0s; }
+        .pillar:nth-of-type(2) { animation-delay: 1.5s; }
+        .pillar:nth-of-type(3) { animation-delay: 1.8s; }
+        .pillar:nth-of-type(4) { animation-delay: 2.1s; }
+        .pillar:nth-of-type(5) { animation-delay: 2.4s; }
 
-
-        .pillar-icon {
-            flex-shrink: 0;
-            width: 40px;
-            height: 40px;
-            fill: var(--info-green);
-        }
-        .pillar-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
+        .pillar h3 {
             margin: 0 0 0.5rem 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--ow-white);
         }
-        .pillar-description {
-            font-size: 1rem;
+        
+        .pillar p {
+            margin: 0;
             color: var(--ow-gray);
             line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .engine-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .gear {
+            width: 250px; /* Smaller gear */
+            height: 250px; /* Smaller gear */
+            opacity: 0;
+            animation: zoomIn 1s 2.7s ease-out forwards;
+        }
+        
+        .gear svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--ow-dark-gray);
+            stroke: var(--border-color);
+            stroke-width: 2px;
+        }
+        
+        .gear.active svg {
+            animation: spin 30s linear infinite;
+        }
+
+        .engine-label {
+            position: absolute;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem; /* Smaller label */
+            color: var(--info-green);
+            opacity: 0;
+            animation: fadeIn 1s 3s ease-out forwards;
         }
 
         .navigation {
@@ -140,10 +188,15 @@
         }
         
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
         @keyframes slideUpFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
         
@@ -155,41 +208,49 @@
         <div class="slide-container">
             <h1 class="slide-title">Core Operational Pillars</h1>
             
-            <div class="pillars-grid">
-                <div class="pillar">
-                    <svg class="pillar-icon" viewBox="0 0 24 24"><path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M11,15V14H13V15H11M11,18V17H13V18H11M8,15V14H10V15H8M8,18V17H10V18H8Z"/></svg>
-                    <div>
-                        <h3 class="pillar-title">Standardized Playbooks</h3>
-                        <p class="pillar-description">Creating repeatable, scalable processes for every stage of the partner lifecycle.</p>
+            <div class="content-grid">
+                <div class="pillars-list">
+                    <div class="pillar">
+                        <svg class="pillar-icon" viewBox="0 0 24 24"><path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M11,15V14H13V15H11M11,18V17H13V18H11M8,15V14H10V15H8M8,18V17H10V18H8Z"/></svg>
+                        <div>
+                            <h3>Standardized Playbooks</h3>
+                            <p>Creating repeatable, scalable processes for every stage of the partner lifecycle.</p>
+                        </div>
+                    </div>
+                     <div class="pillar">
+                        <svg class="pillar-icon" viewBox="0 0 24 24"><path d="M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8M12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14M21.41,11.58L22.82,13L21.41,14.41L20,13C19.83,13.88 19.5,14.69 19.07,15.4L19.78,16.81L18.36,18.22L16.95,17.5C16.18,17.92 15.36,18.25 14.47,18.42L13,20H11L9.53,18.42C8.64,18.25 7.82,17.92 7.05,17.5L5.64,18.22L4.22,16.81L4.93,15.4C4.5,14.69 4.17,13.88 4,13L2.59,14.41L1.18,13L2.59,11.58C2.41,10.7 2.41,9.83 2.59,9L1.18,7.58L2.59,6.17L4,7.58C4.17,6.7 4.5,5.89 4.93,5.19L4.22,3.78L5.64,2.36L7.05,3.08C7.82,2.66 8.64,2.33 9.53,2.16L11,0.58H13L14.47,2.16C15.36,2.33 16.18,2.66 16.95,3.08L18.36,2.36L19.78,3.78L19.07,5.19C19.5,5.89 19.83,6.7 20,7.58L21.41,6.17L22.82,7.58L21.41,9C21.59,9.83 21.59,10.7 21.41,11.58Z"/></svg>
+                        <div>
+                            <h3>Process Automation</h3>
+                            <p>Leveraging tools to automate reporting and repetitive tasks, freeing up time for high-value activities.</p>
+                        </div>
+                    </div>
+                     <div class="pillar">
+                        <svg class="pillar-icon" viewBox="0 0 24 24"><path d="M13,9V3.5L18.5,9M6,2H14L20,8V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2M12,18C14.21,18 16,16.21 16,14C16,11.79 14.21,10 12,10C9.79,10 8,11.79 8,14C8,16.21 9.79,18 12,18M12,12A2,2 0 0,1 14,14A2,2 0 0,1 12,16A2,2 0 0,1 10,14A2,2 0 0,1 12,12Z"/></svg>
+                        <div>
+                            <h3>Centralized Dashboarding</h3>
+                            <p>Live dashboards to track KPIs, pipeline health, and revenue performance in real-time.</p>
+                        </div>
+                    </div>
+                     <div class="pillar">
+                        <svg class="pillar-icon" viewBox="0 0 24 24"><path d="M12,2A9,9 0 0,0 3,11C3,14.82 5.46,18.09 9,19.23V22H15V19.23C18.54,18.09 21,14.82 21,11A9,9 0 0,0 12,2M8,11A2,2 0 0,1 10,13A2,2 0 0,1 8,15A2,2 0 0,1 6,13A2,2 0 0,1 8,11M16,11A2,2 0 0,1 18,13A2,2 0 0,1 16,15A2,2 0 0,1 14,13A2,2 0 0,1 16,11Z" /></svg>
+                        <div>
+                            <h3>AI-Driven Insights</h3>
+                            <p>Utilizing AI to analyze performance data, predict trends, and provide actionable recommendations.</p>
+                        </div>
+                    </div>
+                     <div class="pillar" id="last-pillar">
+                        <svg class="pillar-icon" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L21.5,20L20,21.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/></svg>
+                        <div>
+                            <h3>Proactive Funnel Checks</h3>
+                            <p>Consistent, data-driven reviews to uncover opportunities and ensure forecast accuracy.</p>
+                        </div>
                     </div>
                 </div>
-                 <div class="pillar">
-                    <svg class="pillar-icon" viewBox="0 0 24 24"><path d="M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8M12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14M21.41,11.58L22.82,13L21.41,14.41L20,13C19.83,13.88 19.5,14.69 19.07,15.4L19.78,16.81L18.36,18.22L16.95,17.5C16.18,17.92 15.36,18.25 14.47,18.42L13,20H11L9.53,18.42C8.64,18.25 7.82,17.92 7.05,17.5L5.64,18.22L4.22,16.81L4.93,15.4C4.5,14.69 4.17,13.88 4,13L2.59,14.41L1.18,13L2.59,11.58C2.41,10.7 2.41,9.83 2.59,9L1.18,7.58L2.59,6.17L4,7.58C4.17,6.7 4.5,5.89 4.93,5.19L4.22,3.78L5.64,2.36L7.05,3.08C7.82,2.66 8.64,2.33 9.53,2.16L11,0.58H13L14.47,2.16C15.36,2.33 16.18,2.66 16.95,3.08L18.36,2.36L19.78,3.78L19.07,5.19C19.5,5.89 19.83,6.7 20,7.58L21.41,6.17L22.82,7.58L21.41,9C21.59,9.83 21.59,10.7 21.41,11.58Z"/></svg>
-                    <div>
-                        <h3 class="pillar-title">Process Automation</h3>
-                        <p class="pillar-description">Leveraging tools to automate reporting and repetitive tasks, freeing up time for high-value activities.</p>
+                <div class="engine-visual">
+                    <div class="gear" id="engine-gear">
+                        <svg viewBox="0 0 100 100"><path d="M 50,50 m -40,0 a 40,40 0 1,0 80,0 a 40,40 0 1,0 -80,0 M 50,50 m -28,0 a 28,28 0 1,0 56,0 a 28,28 0 1,0 -56,0 M 50,50 m 0,-48 l 5,-10 l 5,10 z M 50,50 m 0,48 l -5,10 l -5,-10 z M 50,50 m -48,0 l -10,-5 l 10,-5 z M 50,50 m 48,0 l 10,5 l -10,5 z M 50,50 m -34,-34 l -2,-10 l 8,-6 z M 50,50 m 34,34 l 2,10 l -8,6 z M 50,50 m -34,34 l -8,6 l 2,-10 z M 50,50 m 34,-34 l 8,-6 l -2,10 z"/></svg>
                     </div>
-                </div>
-                 <div class="pillar">
-                    <svg class="pillar-icon" viewBox="0 0 24 24"><path d="M13,9V3.5L18.5,9M6,2H14L20,8V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2M12,18C14.21,18 16,16.21 16,14C16,11.79 14.21,10 12,10C9.79,10 8,11.79 8,14C8,16.21 9.79,18 12,18M12,12A2,2 0 0,1 14,14A2,2 0 0,1 12,16A2,2 0 0,1 10,14A2,2 0 0,1 12,12Z"/></svg>
-                    <div>
-                        <h3 class="pillar-title">Centralized Dashboarding</h3>
-                        <p class="pillar-description">A single source of truth for tracking KPIs, pipeline health, and revenue performance in real-time.</p>
-                    </div>
-                </div>
-                 <div class="pillar">
-                    <svg class="pillar-icon" viewBox="0 0 24 24"><path d="M12,2A9,9 0 0,0 3,11C3,14.82 5.46,18.09 9,19.23V22H15V19.23C18.54,18.09 21,14.82 21,11A9,9 0 0,0 12,2M8,11A2,2 0 0,1 10,13A2,2 0 0,1 8,15A2,2 0 0,1 6,13A2,2 0 0,1 8,11M16,11A2,2 0 0,1 18,13A2,2 0 0,1 16,15A2,2 0 0,1 14,13A2,2 0 0,1 16,11Z" /></svg>
-                    <div>
-                        <h3 class="pillar-title">AI-Driven Insights</h3>
-                        <p class="pillar-description">Utilizing AI to analyze performance data, predict trends, and provide actionable recommendations for yield optimization.</p>
-                    </div>
-                </div>
-                 <div class="pillar">
-                    <svg class="pillar-icon" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L21.5,20L20,21.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/></svg>
-                    <div>
-                        <h3 class="pillar-title">Proactive Funnel Checks</h3>
-                        <p class="pillar-description">Consistent, data-driven reviews to uncover opportunities, enhance conversion rates, and ensure forecast accuracy.</p>
-                    </div>
+                    <div class="engine-label">Revenue<br>Engine</div>
                 </div>
             </div>
         </div>
@@ -204,5 +265,13 @@
         </a>
     </div>
 
+    <script>
+        const lastPillar = document.getElementById('last-pillar');
+        const engineGear = document.getElementById('engine-gear');
+
+        lastPillar.addEventListener('animationend', () => {
+            engineGear.classList.add('active');
+        });
+    </script>
 </body>
 </html>
