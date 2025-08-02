@@ -134,8 +134,8 @@
         }
 
         .animated-ball {
-            width: 24px;
-            height: 24px;
+            width: 28px; /* Slightly larger for text */
+            height: 28px; /* Slightly larger for text */
             border-radius: 50%;
             position: absolute;
             top: 0;
@@ -145,8 +145,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 12px;
+            font-size: 11px; /* Adjusted size */
             font-weight: bold;
+            line-height: 1;
         }
 
         .problem .animated-ball {
@@ -161,7 +162,7 @@
 
         @keyframes race {
             from { offset-distance: 0%; }
-            to { offset-distance: 96%; } /* FIX: Stop before the end of the path */
+            to { offset-distance: 95.8%; } /* FIX: Stops perfectly on the last node */
         }
         
         @keyframes shrink {
@@ -242,17 +243,18 @@
                         <div class="track-node" style="top: 80%; left: calc(580/1200*100%);"><div class="node-label">Ad Exchange</div><div class="node-fee">-20%</div></div>
                         <div class="track-node" style="top: 20%; left: calc(800/1200*100%);"><div class="node-label">SSPs/Resellers</div><div class="node-fee">-15%</div></div>
                         <div class="track-node" style="top: 50%; left: calc(1150/1200*100%);"><div class="node-label">Publisher</div></div>
-                        <div class="animated-ball">$</div>
+                        <div class="animated-ball">AD</div>
                     </div>
                 </div>
                 <div class="track solution">
                     <h2 class="track-title">Overwolf's Direct Path: Fast & Efficient</h2>
-                     <div class="track-path" style="--path: path('M 50 40 L 1150 40'); --duration: 3s; --delay: 2s;">
+                     <div class="track-path" style="--path: path('M 50 40 L 1150 40'); --duration: 4s; --delay: 2s;">
                         <svg viewBox="0 0 1200 80" preserveAspectRatio="none"><path class="track-line" d="M 50 40 L 1150 40"/></svg>
                         <div class="track-node" style="top: 50%; left: calc(50/1200*100%);"><div class="node-label">Advertiser/DSP</div></div>
-                        <div class="track-node" style="top: 50%; left: 50%;"><div class="node-label">Overwolf</div></div>
+                        <div class="track-node" style="top: 50%; left: 33%;"><div class="node-label">SSP</div></div>
+                        <div class="track-node" style="top: 50%; left: 66%;"><div class="node-label">Overwolf</div></div>
                         <div class="track-node" style="top: 50%; left: calc(1150/1200*100%);"><div class="node-label">Publisher</div></div>
-                        <div class="animated-ball">$</div>
+                        <div class="animated-ball">AD</div>
                     </div>
                 </div>
             </div>
