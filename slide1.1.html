@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwolf GTM - Agenda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ow-red: #D34037;
+            --ow-white: #FFFFFF;
+            --ow-gray: #9F9F9F;
+            --ow-dark-gray: #1E1E1E;
+            --ow-black: #101010;
+            --info-blue: #00A9E0;
+            --info-purple: #9E00FF;
+            --info-green: #00E070;
+            --border-color: #333333;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--ow-black);
+            font-family: 'Lato', sans-serif;
+            color: var(--ow-white);
+            overflow: hidden;
+        }
+
+        .slide-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .slide-container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s ease-out forwards;
+        }
+
+        .slide-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+        }
+        
+        .agenda-list {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 4rem;
+        }
+
+        .connector-line {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            bottom: 20px;
+            width: 2px;
+            background-color: var(--border-color);
+            transform: scaleY(0);
+            transform-origin: top;
+            animation: drawLine 1s 1s ease-out forwards;
+        }
+
+        .agenda-item {
+            position: relative;
+            text-align: left;
+            padding-left: 4rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFadeIn 0.7s ease-out forwards;
+        }
+        
+        .agenda-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* FIX: Corrected animation delays */
+        .item-1 { animation-delay: 1.2s; }
+        .item-2 { animation-delay: 1.6s; }
+        .item-3 { animation-delay: 2.0s; }
+
+        .item-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--ow-dark-gray);
+            border: 2px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .item-number.num-1 { color: var(--info-purple); }
+        .item-number.num-2 { color: var(--info-blue); }
+        .item-number.num-3 { color: var(--info-green); }
+
+        .item-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-description {
+            font-size: 1rem;
+            color: var(--ow-gray);
+            line-height: 1.6;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .nav-arrow {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: var(--ow-white);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: bob 3s ease-in-out infinite, glow 3s ease-in-out infinite;
+        }
+        
+        .nav-arrow:not(.disabled):hover {
+            transform: scale(1.1);
+            background-color: rgba(211, 64, 55, 0.5);
+            box-shadow: 0 0 25px var(--ow-red), inset 0 0 10px rgba(211, 64, 55, 0.3);
+            animation-play-state: paused;
+        }
+        
+        .nav-arrow svg {
+            width: 50%;
+            height: 50%;
+            fill: currentColor;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUpFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes drawLine { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+        @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
+        
+    </style>
+</head>
+<body>
+
+    <div class="slide-wrapper">
+        <div class="slide-container">
+            <h1 class="slide-title">Our Agenda</h1>
+            
+            <div class="agenda-list">
+                <div class="connector-line"></div>
+                <div class="agenda-item item-1">
+                    <div class="item-number num-1">1</div>
+                    <h3 class="item-title">The Opportunity (Why)</h3>
+                    <p class="item-description">Why this is a massive opportunity for Overwolf, and why my approach is superior.</p>
+                </div>
+                <div class="agenda-item item-2">
+                    <div class="item-number num-2">2</div>
+                    <h3 class="item-title">The Execution Plan (How)</h3>
+                    <p class="item-description">The detailed, data-driven plan for the first five months, including the team and timeline.</p>
+                </div>
+                <div class="agenda-item item-3">
+                    <div class="item-number num-3">3</div>
+                    <h3 class="item-title">The System for Success (Proof)</h3>
+                    <p class="item-description">The operational framework, KPIs, and feedback loops that ensure sustainable, predictable growth.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+         <a href="index.html" class="nav-arrow" aria-label="Previous Slide">
+            <svg style="transform: rotate(180deg);" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <a href="slide2.html" class="nav-arrow" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </div>
+
+</body>
+</html>
