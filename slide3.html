@@ -145,8 +145,9 @@
             font-size: 11px;
             font-weight: bold;
             line-height: 1;
-            opacity: 0; /* Initially hidden */
+            opacity: 0;
             transform: translate(-50%, -50%);
+            transition: transform 0.2s;
         }
 
         .problem .animated-ball {
@@ -255,9 +256,17 @@
     </div>
 
     <script>
+        let animationFrameIds = {};
+
         function animateBall(pathId, ballId, duration, delay, shouldShrink) {
             const path = document.getElementById(pathId);
             const ball = document.getElementById(ballId);
+            if (!path || !ball) return;
+
+            if (animationFrameIds[ballId]) {
+                cancelAnimationFrame(animationFrameIds[ballId]);
+            }
+
             const pathLength = path.getTotalLength();
             let startTime = null;
 
@@ -274,29 +283,37 @@
                     ball.style.left = `${point.x}px`;
                     ball.style.top = `${point.y}px`;
 
+                    let scale = 1;
                     if (shouldShrink) {
-                        let scale = 1;
-                        if (progress > 0.2) scale = 0.9;
-                        if (progress > 0.35) scale = 0.8;
-                        if (progress > 0.5) scale = 0.7;
-                        if (progress > 0.65) scale = 0.6;
-                        ball.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                        if (progress > 0.18) scale = 0.9; // DSP
+                        if (progress > 0.32) scale = 0.85; // DMP
+                        if (progress > 0.5) scale = 0.75; // Ad Exchange
+                        if (progress > 0.7) scale = 0.65; // SSPs
                     }
+                    ball.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
                     if (progress < 1) {
-                        requestAnimationFrame(animate);
+                        animationFrameIds[ballId] = requestAnimationFrame(animate);
                     }
                 } else {
-                    requestAnimationFrame(animate);
+                    animationFrameIds[ballId] = requestAnimationFrame(animate);
                 }
             }
-            requestAnimationFrame(animate);
+            animationFrameIds[ballId] = requestAnimationFrame(animate);
         }
 
-        window.addEventListener('load', () => {
+        function runAnimations() {
             animateBall('problem-path-line', 'problem-ball', 8000, 2000, true);
             animateBall('solution-path-line', 'solution-ball', 4000, 2000, false);
+        }
+
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(runAnimations, 100);
         });
+
+        window.addEventListener('load', runAnimations);
     </script>
 </body>
 </html>
