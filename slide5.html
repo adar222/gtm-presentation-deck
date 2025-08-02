@@ -27,7 +27,7 @@
             background-color: var(--ow-black);
             font-family: 'Lato', sans-serif;
             color: var(--ow-white);
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         .slide-wrapper {
@@ -36,8 +36,8 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            min-height: 100vh;
-            padding: 3rem;
+            height: 100vh;
+            padding: 2rem;
             box-sizing: border-box;
         }
 
@@ -63,32 +63,50 @@
         }
         
         .conversion-funnel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .funnel-background {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .funnel-background svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .funnel-flow {
+            fill: url(#flow-gradient);
+            stroke: var(--info-purple);
+            stroke-width: 2px;
+            opacity: 0.2;
         }
 
         .funnel-stage {
-            background-color: var(--ow-dark-gray);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1rem 2rem;
+            position: relative;
+            z-index: 2;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            padding: 1rem 2rem;
+            margin-bottom: 4rem;
             opacity: 0;
             transform: translateY(20px);
             animation: slideUpFadeIn 0.7s ease-out forwards;
-            transition: all 0.3s ease;
         }
         
-        .funnel-stage:nth-of-type(1) { width: 100%; animation-delay: 1.2s; }
-        .funnel-stage:nth-of-type(2) { width: 90%; animation-delay: 1.8s; }
-        .funnel-stage:nth-of-type(3) { width: 80%; animation-delay: 2.4s; }
-        .funnel-stage:nth-of-type(4) { width: 70%; animation-delay: 3.0s; }
-        .funnel-stage:nth-of-type(5) { width: 60%; animation-delay: 3.6s; }
-
+        .funnel-stage:last-child {
+            margin-bottom: 0;
+        }
 
         .funnel-stage .label {
             font-weight: 700;
@@ -101,36 +119,40 @@
             font-size: 1.5rem;
         }
         
-        .funnel-stage.final {
-            border-color: var(--info-purple);
-            box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
-        }
         .funnel-stage.final .value {
             color: var(--info-purple);
         }
 
         .conversion-rate {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--ow-gray);
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            color: var(--ow-gray);
-            margin: 0.5rem 0 1.5rem 0;
+            gap: 0.5rem;
             opacity: 0;
-            transform: translateY(20px);
-            animation: slideUpFadeIn 0.7s ease-out forwards;
+            animation: fadeIn 0.7s ease-out forwards;
         }
         
         .conversion-rate svg {
-            width: 24px;
-            height: 24px;
+            width: 18px;
+            height: 18px;
             fill: var(--ow-gray);
         }
+        
+        /* Positioning & Delays */
+        .stage-1 { animation-delay: 1.2s; }
+        .rate-1 { top: 70px; animation-delay: 1.5s; }
+        .stage-2 { animation-delay: 1.8s; }
+        .rate-2 { top: 165px; animation-delay: 2.1s; }
+        .stage-3 { animation-delay: 2.4s; }
+        .rate-3 { top: 260px; animation-delay: 2.7s; }
+        .stage-4 { animation-delay: 3.0s; }
+        .rate-4 { top: 355px; animation-delay: 3.3s; }
+        .stage-5 { animation-delay: 3.6s; }
 
-        /* Animation Delays */
-        .conversion-rate:nth-of-type(1) { animation-delay: 1.5s; }
-        .conversion-rate:nth-of-type(2) { animation-delay: 2.1s; }
-        .conversion-rate:nth-of-type(3) { animation-delay: 2.7s; }
-        .conversion-rate:nth-of-type(4) { animation-delay: 3.3s; }
 
         .navigation {
             position: fixed;
@@ -190,39 +212,51 @@
             <p class="slide-subtitle">~40 closed deals by the end of March.</p>
             
             <div class="conversion-funnel">
-                <div class="funnel-stage">
+                <div class="funnel-background">
+                    <svg viewBox="0 0 300 420" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:var(--info-purple);stop-opacity:0.5"/>
+                                <stop offset="100%" style="stop-color:var(--info-blue);stop-opacity:0.2"/>
+                            </linearGradient>
+                        </defs>
+                        <path class="funnel-flow" d="M 0 0 L 300 0 L 210 420 L 90 420 Z" />
+                    </svg>
+                </div>
+
+                <div class="funnel-stage stage-1">
                     <div class="label">Outreach</div>
                     <div class="value">1000+</div>
                 </div>
-                <div class="conversion-rate">
+                <div class="conversion-rate rate-1">
                     <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,18L7,13H10V9H14V13H17L12,18Z"/></svg>
                     <span>50% Engagement Rate</span>
                 </div>
-                <div class="funnel-stage">
+                <div class="funnel-stage stage-2">
                     <div class="label">Active Engagements</div>
                     <div class="value">~500</div>
                 </div>
-                 <div class="conversion-rate">
+                 <div class="conversion-rate rate-2">
                     <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,18L7,13H10V9H14V13H17L12,18Z"/></svg>
                     <span>50% Qualification Rate</span>
                 </div>
-                <div class="funnel-stage">
+                <div class="funnel-stage stage-3">
                     <div class="label">Qualified Publishers</div>
                     <div class="value">~250</div>
                 </div>
-                 <div class="conversion-rate">
+                 <div class="conversion-rate rate-3">
                     <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,18L7,13H10V9H14V13H17L12,18Z"/></svg>
                     <span>30% Proposal Rate</span>
                 </div>
-                <div class="funnel-stage">
+                <div class="funnel-stage stage-4">
                     <div class="label">Proposals Sent</div>
                     <div class="value">~80</div>
                 </div>
-                 <div class="conversion-rate">
+                 <div class="conversion-rate rate-4">
                     <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,18L7,13H10V9H14V13H17L12,18Z"/></svg>
                     <span>50% Close Rate</span>
                 </div>
-                <div class="funnel-stage final">
+                <div class="funnel-stage stage-5 final">
                     <div class="label">Closed Deals</div>
                     <div class="value">~40</div>
                 </div>
