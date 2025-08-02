@@ -133,24 +133,13 @@
             color: var(--leakage-red);
         }
 
-        /* Problem Track Layout */
-        .problem .node-1 { top: 50%; left: 5%; }
-        .problem .node-2 { top: 80%; left: 22%; }
-        .problem .node-3 { top: 20%; left: 38%; }
-        .problem .node-4 { top: 80%; left: 55%; }
-        .problem .node-5 { top: 20%; left: 72%; }
-        .problem .node-6 { top: 50%; left: 95%; }
-
-        /* Solution Track Layout */
-        .solution .node-1 { top: 50%; left: 5%; }
-        .solution .node-2 { top: 50%; left: 50%; }
-        .solution .node-3 { top: 50%; left: 95%; }
-
         .animated-ball {
             width: 24px;
             height: 24px;
             border-radius: 50%;
             position: absolute;
+            top: 0;
+            left: 0;
             offset-path: var(--path);
             animation: race var(--duration) linear var(--delay) forwards;
             display: flex;
@@ -172,7 +161,7 @@
 
         @keyframes race {
             from { offset-distance: 0%; }
-            to { offset-distance: 100%; }
+            to { offset-distance: 96%; } /* FIX: Stop before the end of the path */
         }
         
         @keyframes shrink {
@@ -245,24 +234,24 @@
             <div class="racetrack-container">
                 <div class="track problem">
                     <h2 class="track-title">Typical Pipeline: Slow & Inefficient</h2>
-                    <div class="track-path" style="--path: path('M 50 40 C 150 80, 250 0, 350 40 S 550 80, 650 40, 850 0, 950 40'); --duration: 8s; --delay: 2s;">
-                        <svg viewBox="0 0 1000 80" preserveAspectRatio="none"><path class="track-line" d="M 50 40 C 150 80, 250 0, 350 40 S 550 80, 650 40, 850 0, 950 40"/></svg>
-                        <div class="track-node node-1"><div class="node-label">Advertiser</div></div>
-                        <div class="track-node node-2"><div class="node-label">DSP</div><div class="node-fee">-15%</div></div>
-                        <div class="track-node node-3"><div class="node-label">DMP</div><div class="node-fee">-5%</div></div>
-                        <div class="track-node node-4"><div class="node-label">Ad Exchange</div><div class="node-fee">-20%</div></div>
-                        <div class="track-node node-5"><div class="node-label">SSPs/Resellers</div><div class="node-fee">-15%</div></div>
-                        <div class="track-node node-6"><div class="node-label">Publisher</div></div>
+                    <div class="track-path" style="--path: path('M 50 40 C 220 80, 280 0, 450 40 S 650 80, 750 40, 950 0, 1150 40'); --duration: 8s; --delay: 2s;">
+                        <svg viewBox="0 0 1200 80" preserveAspectRatio="none"><path class="track-line" d="M 50 40 C 220 80, 280 0, 450 40 S 650 80, 750 40, 950 0, 1150 40"/></svg>
+                        <div class="track-node" style="top: 50%; left: calc(50/1200*100%);"><div class="node-label">Advertiser</div></div>
+                        <div class="track-node" style="top: 80%; left: calc(220/1200*100%);"><div class="node-label">DSP</div><div class="node-fee">-15%</div></div>
+                        <div class="track-node" style="top: 20%; left: calc(380/1200*100%);"><div class="node-label">DMP</div><div class="node-fee">-5%</div></div>
+                        <div class="track-node" style="top: 80%; left: calc(580/1200*100%);"><div class="node-label">Ad Exchange</div><div class="node-fee">-20%</div></div>
+                        <div class="track-node" style="top: 20%; left: calc(800/1200*100%);"><div class="node-label">SSPs/Resellers</div><div class="node-fee">-15%</div></div>
+                        <div class="track-node" style="top: 50%; left: calc(1150/1200*100%);"><div class="node-label">Publisher</div></div>
                         <div class="animated-ball">$</div>
                     </div>
                 </div>
                 <div class="track solution">
                     <h2 class="track-title">Overwolf's Direct Path: Fast & Efficient</h2>
-                     <div class="track-path" style="--path: path('M 50 40 L 950 40'); --duration: 3s; --delay: 2s;">
-                        <svg viewBox="0 0 1000 80" preserveAspectRatio="none"><path class="track-line" d="M 50 40 L 950 40"/></svg>
-                        <div class="track-node node-1"><div class="node-label">Advertiser/DSP</div></div>
-                        <div class="track-node node-2"><div class="node-label">Overwolf</div></div>
-                        <div class="track-node node-3"><div class="node-label">Publisher</div></div>
+                     <div class="track-path" style="--path: path('M 50 40 L 1150 40'); --duration: 3s; --delay: 2s;">
+                        <svg viewBox="0 0 1200 80" preserveAspectRatio="none"><path class="track-line" d="M 50 40 L 1150 40"/></svg>
+                        <div class="track-node" style="top: 50%; left: calc(50/1200*100%);"><div class="node-label">Advertiser/DSP</div></div>
+                        <div class="track-node" style="top: 50%; left: 50%;"><div class="node-label">Overwolf</div></div>
+                        <div class="track-node" style="top: 50%; left: calc(1150/1200*100%);"><div class="node-label">Publisher</div></div>
                         <div class="animated-ball">$</div>
                     </div>
                 </div>
