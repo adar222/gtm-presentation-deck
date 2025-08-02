@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwolf GTM - The Untapped Opportunity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ow-red: #D34037;
+            --ow-white: #FFFFFF;
+            --ow-gray: #9F9F9F;
+            --ow-dark-gray: #1E1E1E;
+            --ow-black: #101010;
+            --info-blue: #00A9E0;
+            --info-purple: #9E00FF;
+            --info-green: #00E070;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--ow-black);
+            font-family: 'Lato', sans-serif;
+            color: var(--ow-white);
+            overflow: hidden;
+        }
+
+        .slide-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .slide-container {
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s ease-out forwards;
+        }
+
+        .slide-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+        }
+        
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .opportunity-card {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFadeIn 0.7s ease-out forwards;
+        }
+        
+        .opportunity-card:nth-of-type(1) { animation-delay: 1.2s; }
+        .opportunity-card:nth-of-type(2) { animation-delay: 1.5s; }
+        .opportunity-card:nth-of-type(3) { animation-delay: 1.8s; }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem auto;
+            fill: var(--info-purple);
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-description {
+            font-size: 1rem;
+            color: var(--ow-gray);
+            line-height: 1.6;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .nav-arrow {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: var(--ow-white);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: bob 3s ease-in-out infinite, glow 3s ease-in-out infinite;
+        }
+        
+        .nav-arrow:not(.disabled):hover {
+            transform: scale(1.1);
+            background-color: rgba(211, 64, 55, 0.5);
+            box-shadow: 0 0 25px var(--ow-red), inset 0 0 10px rgba(211, 64, 55, 0.3);
+            animation-play-state: paused;
+        }
+        
+        .nav-arrow svg {
+            width: 50%;
+            height: 50%;
+            fill: currentColor;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUpFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
+        
+        @media (max-width: 900px) {
+            .opportunity-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-wrapper">
+        <div class="slide-container">
+            <h1 class="slide-title">The Untapped Opportunity</h1>
+            
+            <div class="opportunity-grid">
+                <div class="opportunity-card">
+                    <svg class="card-icon" viewBox="0 0 24 24"><path d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11.5A3.5,3.5 0 0,0 11.5,8A3.5,3.5 0 0,0 8,4.5A3.5,3.5 0 0,0 4.5,8A3.5,3.5 0 0,0 8,11.5M16,11.5A3.5,3.5 0 0,0 19.5,8A3.5,3.5 0 0,0 16,4.5A3.5,3.5 0 0,0 12.5,8A3.5,3.5 0 0,0 16,11.5Z"/></svg>
+                    <h3 class="card-title">Exclusive Audience</h3>
+                    <p class="card-description">A massive, engaged, and hard-to-reach gamer audience that advertisers are willing to pay a premium for.</p>
+                </div>
+                <div class="opportunity-card">
+                    <svg class="card-icon" viewBox="0 0 24 24"><path d="M12,12.5A3.5,3.5 0 0,0 15.5,9A3.5,3.5 0 0,0 12,5.5A3.5,3.5 0 0,0 8.5,9A3.5,3.5 0 0,0 12,12.5M12,14.5C9.5,14.5 3,15.74 3,18.5V21H21V18.5C21,15.74 14.5,14.5 12,14.5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                    <h3 class="card-title">First-Party Data</h3>
+                    <p class="card-description">A unique and powerful data advantage that allows for precise targeting and performance measurement.</p>
+                </div>
+                <div class="opportunity-card">
+                    <svg class="card-icon" viewBox="0 0 24 24"><path d="M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,21C15.91,20.04 19,15.92 19,11.41V6.3L12,3.18L5,6.3V11.41C5,15.92 8.09,20.04 12,21M12,7A2,2 0 0,1 14,9A2,2 0 0,1 12,11A2,2 0 0,1 10,9A2,2 0 0,1 12,7M12,12C13.1,12 14,12.9 14,14C14,15.1 13.1,16 12,16C10.9,16 10,15.1 10,14C10,12.9 10.9,12 12,12Z"/></svg>
+                    <h3 class="card-title">Brand-Safe Environment</h3>
+                    <p class="card-description">A premium, curated context for advertisers that ensures brand safety and high-quality user engagement.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+         <a href="slide2.html" class="nav-arrow" aria-label="Previous Slide">
+            <svg style="transform: rotate(180deg);" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <a href="slide3.html" class="nav-arrow" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </div>
+
+</body>
+</html>
