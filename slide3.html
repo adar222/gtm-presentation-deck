@@ -134,8 +134,8 @@
         }
 
         .animated-ball {
-            width: 28px; /* Slightly larger for text */
-            height: 28px; /* Slightly larger for text */
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             position: absolute;
             top: 0;
@@ -145,7 +145,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 11px; /* Adjusted size */
+            font-size: 11px;
             font-weight: bold;
             line-height: 1;
         }
@@ -162,7 +162,7 @@
 
         @keyframes race {
             from { offset-distance: 0%; }
-            to { offset-distance: 95.8%; } /* FIX: Stops perfectly on the last node */
+            to { offset-distance: 100%; }
         }
         
         @keyframes shrink {
