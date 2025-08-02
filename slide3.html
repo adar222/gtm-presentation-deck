@@ -108,6 +108,7 @@
             position: absolute;
             top: 0;
             left: 0;
+            overflow: visible;
         }
 
         .track-line {
@@ -138,39 +139,23 @@
             height: 28px;
             border-radius: 50%;
             position: absolute;
-            top: 0;
-            left: 0;
-            offset-path: var(--path);
-            animation: race var(--duration) linear var(--delay) forwards;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 11px;
             font-weight: bold;
             line-height: 1;
+            opacity: 0; /* Initially hidden */
+            transform: translate(-50%, -50%);
         }
 
         .problem .animated-ball {
             background-color: var(--leakage-red);
             box-shadow: 0 0 12px var(--leakage-red);
-            animation-name: race, shrink;
         }
         .solution .animated-ball {
             background-color: var(--info-green);
             box-shadow: 0 0 12px var(--info-green);
-        }
-
-        @keyframes race {
-            from { offset-distance: 0%; }
-            to { offset-distance: 100%; }
-        }
-        
-        @keyframes shrink {
-            0%, 20% { transform: scale(1); }
-            35% { transform: scale(0.9); }
-            50% { transform: scale(0.8); }
-            65% { transform: scale(0.7); }
-            100% { transform: scale(0.6); }
         }
 
         .navigation {
@@ -214,7 +199,6 @@
         }
         
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); } to { transform: translateY(0); } }
         @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         @keyframes glow { 0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); } }
         
@@ -235,26 +219,26 @@
             <div class="racetrack-container">
                 <div class="track problem">
                     <h2 class="track-title">Typical Pipeline: Slow & Inefficient</h2>
-                    <div class="track-path" style="--path: path('M 50 40 C 220 80, 280 0, 450 40 S 650 80, 750 40, 950 0, 1150 40'); --duration: 8s; --delay: 2s;">
-                        <svg viewBox="0 0 1200 80" preserveAspectRatio="none"><path class="track-line" d="M 50 40 C 220 80, 280 0, 450 40 S 650 80, 750 40, 950 0, 1150 40"/></svg>
+                    <div class="track-path">
+                        <svg viewBox="0 0 1200 80" preserveAspectRatio="none"><path class="track-line" id="problem-path-line" d="M 50 40 C 220 80, 280 0, 450 40 S 650 80, 750 40, 950 0, 1150 40"/></svg>
                         <div class="track-node" style="top: 50%; left: calc(50/1200*100%);"><div class="node-label">Advertiser</div></div>
                         <div class="track-node" style="top: 80%; left: calc(220/1200*100%);"><div class="node-label">DSP</div><div class="node-fee">-15%</div></div>
                         <div class="track-node" style="top: 20%; left: calc(380/1200*100%);"><div class="node-label">DMP</div><div class="node-fee">-5%</div></div>
                         <div class="track-node" style="top: 80%; left: calc(580/1200*100%);"><div class="node-label">Ad Exchange</div><div class="node-fee">-20%</div></div>
                         <div class="track-node" style="top: 20%; left: calc(800/1200*100%);"><div class="node-label">SSPs/Resellers</div><div class="node-fee">-15%</div></div>
                         <div class="track-node" style="top: 50%; left: calc(1150/1200*100%);"><div class="node-label">Publisher</div></div>
-                        <div class="animated-ball">AD</div>
+                        <div class="animated-ball" id="problem-ball">AD</div>
                     </div>
                 </div>
                 <div class="track solution">
                     <h2 class="track-title">Overwolf's Direct Path: Fast & Efficient</h2>
-                     <div class="track-path" style="--path: path('M 50 40 L 1150 40'); --duration: 4s; --delay: 2s;">
-                        <svg viewBox="0 0 1200 80" preserveAspectRatio="none"><path class="track-line" d="M 50 40 L 1150 40"/></svg>
+                     <div class="track-path">
+                        <svg viewBox="0 0 1200 80" preserveAspectRatio="none"><path class="track-line" id="solution-path-line" d="M 50 40 L 1150 40"/></svg>
                         <div class="track-node" style="top: 50%; left: calc(50/1200*100%);"><div class="node-label">Advertiser/DSP</div></div>
                         <div class="track-node" style="top: 50%; left: 33%;"><div class="node-label">SSP</div></div>
                         <div class="track-node" style="top: 50%; left: 66%;"><div class="node-label">Overwolf</div></div>
                         <div class="track-node" style="top: 50%; left: calc(1150/1200*100%);"><div class="node-label">Publisher</div></div>
-                        <div class="animated-ball">AD</div>
+                        <div class="animated-ball" id="solution-ball">AD</div>
                     </div>
                 </div>
             </div>
@@ -270,5 +254,49 @@
         </a>
     </div>
 
+    <script>
+        function animateBall(pathId, ballId, duration, delay, shouldShrink) {
+            const path = document.getElementById(pathId);
+            const ball = document.getElementById(ballId);
+            const pathLength = path.getTotalLength();
+            let startTime = null;
+
+            function animate(currentTime) {
+                if (!startTime) startTime = currentTime;
+                const elapsedTime = currentTime - startTime;
+                
+                if (elapsedTime > delay) {
+                    ball.style.opacity = 1;
+                    const timeIntoAnimation = elapsedTime - delay;
+                    const progress = Math.min(timeIntoAnimation / duration, 1);
+                    const point = path.getPointAtLength(progress * pathLength);
+                    
+                    ball.style.left = `${point.x}px`;
+                    ball.style.top = `${point.y}px`;
+
+                    if (shouldShrink) {
+                        let scale = 1;
+                        if (progress > 0.2) scale = 0.9;
+                        if (progress > 0.35) scale = 0.8;
+                        if (progress > 0.5) scale = 0.7;
+                        if (progress > 0.65) scale = 0.6;
+                        ball.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                } else {
+                    requestAnimationFrame(animate);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('load', () => {
+            animateBall('problem-path-line', 'problem-ball', 8000, 2000, true);
+            animateBall('solution-path-line', 'solution-ball', 4000, 2000, false);
+        });
+    </script>
 </body>
 </html>
